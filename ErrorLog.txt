@@ -66,3 +66,11 @@
 [2/22/24, 1:05 PM]|AccountCatalog|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1146: (conn=51117) Table 'spr24_csc429_msaad1.Account' doesn't exist>
 [2/22/24, 1:05 PM]|BalanceInquiryTransaction|Transaction|Error|NOTAG|null<Could not find any accounts for 1>
 [2/22/24, 1:07 PM]|AccountHolder|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: (conn=51147) Unknown column 'mm' in 'where clause'>
+[2/22/24, 1:24 PM]|AccountCatalog|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1146: (conn=51275) Table 'spr24_csc429_msaad1.Account' doesn't exist>
+[2/22/24, 1:24 PM]|DepositTransaction|Transaction|Error|NOTAG|null<Could not find any accounts for 1>
+[2/22/24, 1:24 PM]|AccountCatalog|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1146: (conn=51275) Table 'spr24_csc429_msaad1.Account' doesn't exist>
+[2/22/24, 1:24 PM]|WithdrawTransaction|Transaction|Error|NOTAG|null<Could not find any accounts for 1>
+[2/22/24, 1:24 PM]|AccountCatalog|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1146: (conn=51275) Table 'spr24_csc429_msaad1.Account' doesn't exist>
+[2/22/24, 1:24 PM]|TransferTransaction|Transaction|Error|NOTAG|null<Could not find any accounts for 1>
+[2/22/24, 1:24 PM]|AccountCatalog|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1146: (conn=51275) Table 'spr24_csc429_msaad1.Account' doesn't exist>
+[2/22/24, 1:24 PM]|BalanceInquiryTransaction|Transaction|Error|NOTAG|null<Could not find any accounts for 1>

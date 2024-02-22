@@ -7,3 +7,6 @@ classes
 .idea
 dbConfig.ini
 mariadb-java-client-3.0.3.jar
+
+# Error log
+ErrorLog.txt
