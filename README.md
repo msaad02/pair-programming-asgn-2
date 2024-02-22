@@ -1,4 +1,4 @@
-# Pair Programming Assignment
+# Pair Programming Assignment #2
 
 Using IntelliJ, setup for project is something like this:
 
@@ -9,8 +9,8 @@ Click the "+" in the second column and select "From Maven"
 
 Add these:
 ```
-org.openjfx:javafx-base:17.0.1
-org.openjfx:javafx-controls:17.0.1
+org.openjfx:javafx-base:20
+org.openjfx:javafx-controls:20
 ```
 ---
 
@@ -24,4 +24,3 @@ server=csdb.brockport.edu
 ```
 
 Also, the mariadb driver is not in here.
-# pair-programming-asgn-2
