@@ -65,7 +65,7 @@ public class WithdrawTransaction extends Transaction
 			myAccount = createAccount(accountNumber);
 		
 			boolean isOwner = myAccount.verifyOwnership(myCust);
-			if (isOwner == false)
+			if (!isOwner)
 			{
 				transactionErrorMessage = "ERROR: Withdraw Transaction: Not owner of selected account!!";
 				new Event(Event.getLeafLevelClassName(this), "processTransaction",
@@ -75,7 +75,7 @@ public class WithdrawTransaction extends Transaction
 			else
 			{
 				boolean ok = myAccount.checkBalance(amount); // Not done via invocation of 'sCR(...)' method on Account as there is no possibility of callback
-				if (ok == true)
+				if (ok)
 				{
 					myAccount.debit(amount); 
 					myAccount.update();
@@ -95,7 +95,7 @@ public class WithdrawTransaction extends Transaction
 		{
 			transactionErrorMessage = "ACCOUNT FAILURE: Contact bank immediately!!";
 			new Event(Event.getLeafLevelClassName(this), "processTransaction",
-				"Failed to create account for number : " + accountNumber + ". Reason: " + ex.toString(),
+				"Failed to create account for number : " + accountNumber + ". Reason: " + ex,
 				Event.ERROR);
 
 		}
@@ -104,27 +104,27 @@ public class WithdrawTransaction extends Transaction
 	//-----------------------------------------------------------
 	public Object getState(String key)
 	{
-		if (key.equals("TransactionError") == true)
+		if (key.equals("TransactionError"))
 		{
 			return transactionErrorMessage;
 		}
 		else
-		if (key.equals("UpdateStatusMessage") == true)
+		if (key.equals("UpdateStatusMessage"))
 		{
 			return accountUpdateStatusMessage;
 		}
 		else
-		if (key.equals("AccountNumberList") == true)
+		if (key.equals("AccountNumberList"))
 		{
 			return myAccountIDs;
 		}
 		else
-		if (key.equals("Account") == true)
+		if (key.equals("Account"))
 		{
 			return myAccount;
 		}
 		else
-		if (key.equals("WithdrawAmount") == true)
+		if (key.equals("WithdrawAmount"))
 		{
 			return withdrawAmount;
 		}
@@ -134,12 +134,12 @@ public class WithdrawTransaction extends Transaction
 	//-----------------------------------------------------------
 	public void stateChangeRequest(String key, Object value)
 	{
-		if (key.equals("DoYourJob") == true)
+		if (key.equals("DoYourJob"))
 		{
 			doYourJob();
 		}
 		else
-		if (key.equals("DoWithdraw") == true)
+		if (key.equals("DoWithdraw"))
 		{
 			processTransaction((Properties)value);
 		}

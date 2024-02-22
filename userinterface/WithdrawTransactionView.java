@@ -255,7 +255,7 @@ public class WithdrawTransactionView extends View
 	//---------------------------------------------------------
 	public void updateState(String key, Object value)
 	{
-		if (key.equals("TransactionError") == true)
+		if (key.equals("TransactionError"))
 		{
 			String val = (String)value;
 			displayErrorMessage(val);

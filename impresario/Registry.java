@@ -79,7 +79,7 @@ public abstract class Registry
 		// debug only, doesn't need translation
 		// DEBUG: if (key.equals("dbDateDue")) System.out.println("Registry.subscribe - (" + key + ", " + subscriber.getClass() + ")");		
 		
-		if(mySubscribers.containsKey(key) == true)
+		if(mySubscribers.containsKey(key))
 		{
 			// pull the current object and see if it's a Vector
 			Object tempObj = mySubscribers.get(key);
@@ -137,7 +137,7 @@ public abstract class Registry
 //		new Event(Event.getLeafLevelClassName(this), "unSubscribe", "Unsubscribe key " + key + " for " + subscriber.getClass(), Event.DEBUG);
 
 		// make sure this is a valid request
-		if(mySubscribers.containsKey(key) == true)
+		if(mySubscribers.containsKey(key))
 		{
 			// pull the current object and see if it's a Vector
 			Object tempObj = mySubscribers.get(key);

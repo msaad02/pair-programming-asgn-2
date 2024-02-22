@@ -31,13 +31,13 @@ public class Teller implements IView, IModel
 {
 	// For Impresario
 	private Properties dependencies;
-	private ModelRegistry myRegistry;
+	private final ModelRegistry myRegistry;
 
 	private AccountHolder myAccountHolder;
 
 	// GUI Components
-	private Hashtable<String, Scene> myViews;
-	private Stage	  	myStage;
+	private final Hashtable<String, Scene> myViews;
+	private final Stage	  	myStage;
 
 	private String loginErrorMessage = "";
 	private String transactionErrorMessage = "";
@@ -90,17 +90,17 @@ public class Teller implements IView, IModel
 	//----------------------------------------------------------
 	public Object getState(String key)
 	{
-		if (key.equals("LoginError") == true)
+		if (key.equals("LoginError"))
 		{
 			return loginErrorMessage;
 		}
 		else
-		if (key.equals("TransactionError") == true)
+		if (key.equals("TransactionError"))
 		{
 			return transactionErrorMessage;
 		}
 		else
-		if (key.equals("Name") == true)
+		if (key.equals("Name"))
 		{
 			if (myAccountHolder != null)
 			{
@@ -120,28 +120,28 @@ public class Teller implements IView, IModel
 		// just set up dependencies for
 		// DEBUG System.out.println("Teller.sCR: key = " + key);
 
-		if (key.equals("Login") == true)
+		if (key.equals("Login"))
 		{
 			if (value != null)
 			{
 				loginErrorMessage = "";
 
 				boolean flag = loginAccountHolder((Properties)value);
-				if (flag == true)
+				if (flag)
 				{
 					createAndShowTransactionChoiceView();
 				}
 			}
 		}
 		else
-		if (key.equals("CancelTransaction") == true)
+		if (key.equals("CancelTransaction"))
 		{
 			createAndShowTransactionChoiceView();
 		}
 		else
-		if ((key.equals("Deposit") == true) || (key.equals("Withdraw") == true) ||
-			(key.equals("Transfer") == true) || (key.equals("BalanceInquiry") == true) ||
-			(key.equals("ImposeServiceCharge") == true))
+		if ((key.equals("Deposit")) || (key.equals("Withdraw")) ||
+			(key.equals("Transfer")) || (key.equals("BalanceInquiry")) ||
+			(key.equals("ImposeServiceCharge")))
 		{
 			String transType = key;
 
@@ -156,7 +156,7 @@ public class Teller implements IView, IModel
 
 		}
 		else
-		if (key.equals("Logout") == true)
+		if (key.equals("Logout"))
 		{
 			myAccountHolder = null;
 			myViews.remove("TransactionChoiceView");
@@ -222,7 +222,7 @@ public class Teller implements IView, IModel
 		{
 			transactionErrorMessage = "FATAL ERROR: TRANSACTION FAILURE: Unrecognized transaction!!";
 			new Event(Event.getLeafLevelClassName(this), "createTransaction",
-					"Transaction Creation Failure: Unrecognized transaction " + ex.toString(),
+					"Transaction Creation Failure: Unrecognized transaction " + ex,
 					Event.ERROR);
 		}
 	}
@@ -230,7 +230,7 @@ public class Teller implements IView, IModel
 	//----------------------------------------------------------
 	private void createAndShowTransactionChoiceView()
 	{
-		Scene currentScene = (Scene)myViews.get("TransactionChoiceView");
+		Scene currentScene = myViews.get("TransactionChoiceView");
 		
 		if (currentScene == null)
 		{
@@ -249,7 +249,7 @@ public class Teller implements IView, IModel
 	//------------------------------------------------------------
 	private void createAndShowTellerView()
 	{
-		Scene currentScene = (Scene)myViews.get("TellerView");
+		Scene currentScene = myViews.get("TellerView");
 
 		if (currentScene == null)
 		{

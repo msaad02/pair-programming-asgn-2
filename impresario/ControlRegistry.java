@@ -84,7 +84,7 @@ public class ControlRegistry extends Registry
 		{
 			// get the list of elements
 			Enumeration subscriberList = ((Vector)tempObj).elements();				
-			while(subscriberList.hasMoreElements() == true) 
+			while(subscriberList.hasMoreElements())
 			{
 				// extract each subscriber
 				Object subscriber = subscriberList.nextElement();

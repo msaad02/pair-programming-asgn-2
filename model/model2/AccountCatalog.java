@@ -19,7 +19,7 @@ public class AccountCatalog  extends EntityBase implements IView
 {
 	private static final String myTableName = "Account";
 
-	private Vector accountIDs;
+	private final Vector accountIDs;
 	// GUI Components
 
 	// constructor for this class

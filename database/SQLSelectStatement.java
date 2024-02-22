@@ -52,10 +52,10 @@ public class SQLSelectStatement extends SQLStatement
 		
 		// add the fields from the schema, skip the tablename
 		Enumeration fields = schema.propertyNames();
-		while (fields.hasMoreElements() == true)
+		while (fields.hasMoreElements())
 		{
 			String field = (String)fields.nextElement();
-			if(field.equals("TableName") != true)
+			if(!field.equals("TableName"))
 			{
 				// skip the leading comma if we're at the beginning
 				if(theSQLStatement.length() > 7)
@@ -75,7 +75,7 @@ public class SQLSelectStatement extends SQLStatement
 		if (whereValues != null)
 		{
 			Enumeration theWhereFields = whereValues.propertyNames();
-			while (theWhereFields.hasMoreElements() == true)
+			while (theWhereFields.hasMoreElements())
 			{
 				
 				String theFieldName = (String)theWhereFields.nextElement();
@@ -105,7 +105,7 @@ public class SQLSelectStatement extends SQLStatement
 						String actualType = schema.getProperty(theFieldName);
 	
 						// if the type is numeric, do NOT include quotes.
-						if ((actualType != null) && (actualType.equals("numeric") == true))
+						if ((actualType != null) && (actualType.equals("numeric")))
 						{
 							theWhereString += theConjunctionClause + theFieldName + " = " + theFieldValue;
 						}

@@ -41,7 +41,7 @@ public class WithdrawReceipt extends View
 {
 
 	private String				amountWithdrawnString;
-	private	String				todaysDateAndTimeString;
+	private final String				todaysDateAndTimeString;
 
 	// GUI controls
 	private Text accountNumber;

@@ -51,22 +51,22 @@ public class ImposeServiceChargeTransaction extends Transaction
 	//-----------------------------------------------------------
 	public Object getState(String key)
 	{
-		if (key.equals("TransactionError") == true)
+		if (key.equals("TransactionError"))
 		{
 			return transactionErrorMessage;
 		}
 		else
-		if (key.equals("UpdateStatusMessage") == true)
+		if (key.equals("UpdateStatusMessage"))
 		{
 			return accountUpdateStatusMessage;
 		}
 		else
-		if (key.equals("AccountList") == true)
+		if (key.equals("AccountList"))
 		{
 			return accounts;
 		}
 		else
-		if (key.equals("SelectedAccount") == true)
+		if (key.equals("SelectedAccount"))
 		{
 			return selectedAccount;
 		}
@@ -74,19 +74,13 @@ public class ImposeServiceChargeTransaction extends Transaction
 		if (selectedAccount != null)
 		{
 			Object val = selectedAccount.getState(key);
-			if (val != null)
-			{
-				return val;
-			}
+            return val;
 		}
 		else
 		if (accounts != null)
 		{
 			Object val = accounts.getState(key);
-			if (val != null)
-			{
-				return val;
-			}
+            return val;
 		}
 
 		return null;
@@ -95,12 +89,12 @@ public class ImposeServiceChargeTransaction extends Transaction
 	//-----------------------------------------------------------
 	public void stateChangeRequest(String key, Object value)
 	{
-		if (key.equals("DoYourJob") == true)
+		if (key.equals("DoYourJob"))
 		{
 			createAndShowAccountHolderIDEntryView();
 		}
 		else
-		if (key.equals("AccountHolderIDEntered") == true)
+		if (key.equals("AccountHolderIDEntered"))
 		{
 
 			String acctHolderID = (String)value;
@@ -126,7 +120,7 @@ public class ImposeServiceChargeTransaction extends Transaction
 			}
 		}
 		else
-		if (key.equals("AccountSelected") == true)
+		if (key.equals("AccountSelected"))
 		{
 			String accountNumber = (String)value;
 			selectedAccount = accounts.retrieve(accountNumber);
@@ -134,19 +128,19 @@ public class ImposeServiceChargeTransaction extends Transaction
 			createAndShowAccountView();
 		}
 		else
-		if (key.equals("ServiceCharge") == true)
+		if (key.equals("ServiceCharge"))
 		{
 			selectedAccount.setServiceCharge((String)value);
 			accountUpdateStatusMessage = (String)selectedAccount.getState("UpdateStatusMessage");
 			transactionErrorMessage = accountUpdateStatusMessage;
 		}
 		else
-		if (key.equals("CancelAccountList") == true)
+		if (key.equals("CancelAccountList"))
 		{
 			createAndShowAccountHolderIDEntryView();
 		}
 		else
-		if (key.equals("AccountCancelled") == true)
+		if (key.equals("AccountCancelled"))
 		{
 			createAndShowAccountListView();
 		}

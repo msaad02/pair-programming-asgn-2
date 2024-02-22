@@ -114,7 +114,7 @@ public class ModelRegistry extends Registry
 			return;  // do nothing
 		}
 
-		while(propertyList.hasMoreElements() == true)
+		while(propertyList.hasMoreElements())
 		{
 			// pick out each dependant property from the list
 			String dependProperty = (String)propertyList.nextElement();
@@ -135,7 +135,7 @@ public class ModelRegistry extends Registry
 			{
 				// get the list of elements
 				Enumeration subscriberList = ((Vector)tempObj).elements();
-				while(subscriberList.hasMoreElements() == true)
+				while(subscriberList.hasMoreElements())
 				{
 					// extract each subscriber
 					Object subscriber = subscriberList.nextElement();

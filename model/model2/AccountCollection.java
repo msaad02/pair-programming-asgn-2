@@ -23,7 +23,7 @@ public class AccountCollection  extends EntityBase implements IView
 {
 	private static final String myTableName = "Account";
 
-	private Vector<Account> accounts;
+	private final Vector<Account> accounts;
 	// GUI Components
 
 	// constructor for this class
@@ -61,7 +61,7 @@ public class AccountCollection  extends EntityBase implements IView
 
 			for (int cnt = 0; cnt < allDataRetrieved.size(); cnt++)
 			{
-				Properties nextAccountData = (Properties)allDataRetrieved.elementAt(cnt);
+				Properties nextAccountData = allDataRetrieved.elementAt(cnt);
 
 				Account account = new Account(nextAccountData);
 
@@ -149,7 +149,7 @@ public class AccountCollection  extends EntityBase implements IView
 		{
 			Account nextAcct = accounts.elementAt(cnt);
 			String nextAccNum = (String)nextAcct.getState("AccountNumber");
-			if (nextAccNum.equals(accountNumber) == true)
+			if (nextAccNum.equals(accountNumber))
 			{
 				retValue = nextAcct;
 				return retValue; // we should say 'break;' here

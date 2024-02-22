@@ -89,7 +89,7 @@ public class AccountCollectionView extends View
 	 		Vector entryList = (Vector)accountCollection.getState("Accounts");
 			Enumeration entries = entryList.elements();
 
-			while (entries.hasMoreElements() == true)
+			while (entries.hasMoreElements())
 			{
 				Account nextAccount = (Account)entries.nextElement();
 				Vector<String> view = nextAccount.getEntryListView();

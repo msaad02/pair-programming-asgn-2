@@ -227,7 +227,7 @@ public class TransactionChoiceView extends View
 	//---------------------------------------------------------
 	public void updateState(String key, Object value)
 	{
-		if (key.equals("TransactionError") == true)
+		if (key.equals("TransactionError"))
 		{
 			// display the passed text
 			displayErrorMessage((String)value);

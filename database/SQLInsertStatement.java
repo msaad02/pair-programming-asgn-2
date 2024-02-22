@@ -60,10 +60,10 @@ public class SQLInsertStatement extends SQLStatement
 		// must go at least one or we will get an error back from the db
 		Enumeration theValuesColumns = insertValues.propertyNames();
 
-		while (theValuesColumns.hasMoreElements() == true)
+		while (theValuesColumns.hasMoreElements())
 		{
 		
-			if ((theValuesString.equals("") == true) && (theColumnNamesList.equals("") == true))
+			if ((theValuesString.equals("")) && (theColumnNamesList.equals("")))
 			{
 		  		theValuesString += " VALUES ( ";
 				theColumnNamesList += " ( ";
@@ -87,7 +87,7 @@ public class SQLInsertStatement extends SQLStatement
 			//		System.out.println("InsertType = " + insertType);
 			//System.out.println("Schema is : " + schema);
 
-			if (insertType.equals("numeric") == true)
+			if (insertType.equals("numeric"))
 			{
 				theValuesString += theColumnValue;
 				//	System.out.println("Value string updated: " + theValuesString);
@@ -100,7 +100,7 @@ public class SQLInsertStatement extends SQLStatement
 
 		} // end while
 
-		if ((theValuesString.equals("") == false) && (theColumnNamesList.equals("") == false))
+		if ((!theValuesString.equals("")) && (!theColumnNamesList.equals("")))
 		// this must be the case for an insert statement
 		{
 			theValuesString += " ) ";

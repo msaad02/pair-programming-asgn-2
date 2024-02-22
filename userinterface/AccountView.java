@@ -202,7 +202,7 @@ public class AccountView extends View
 	{
 		clearErrorMessage();
 
-		if (key.equals("ServiceCharge") == true)
+		if (key.equals("ServiceCharge"))
 		{
 			String val = (String)value;
 			serviceCharge.setText(val);

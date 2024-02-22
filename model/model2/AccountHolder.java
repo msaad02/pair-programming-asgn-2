@@ -54,7 +54,7 @@ public class AccountHolder extends EntityBase implements IView
 				persistentState = new Properties();
 
 				Enumeration allKeys = retrievedCustomerData.propertyNames();
-				while (allKeys.hasMoreElements() == true)
+				while (allKeys.hasMoreElements())
 				{
 					String nextKey = (String)allKeys.nextElement();
 					String nextValue = retrievedCustomerData.getProperty(nextKey);
@@ -81,7 +81,7 @@ public class AccountHolder extends EntityBase implements IView
 		if (accountPassword != null)
 		{
 			boolean passwordCheck = accountPassword.equals(password);
-			if (passwordCheck == false)
+			if (!passwordCheck)
 			{
 				throw new PasswordMismatchException("Password mismatch");
 			}
@@ -122,7 +122,7 @@ public class AccountHolder extends EntityBase implements IView
 				persistentState = new Properties();
 
 				Enumeration allKeys = retrievedCustomerData.propertyNames();
-				while (allKeys.hasMoreElements() == true)
+				while (allKeys.hasMoreElements())
 				{
 					String nextKey = (String)allKeys.nextElement();
 					String nextValue = retrievedCustomerData.getProperty(nextKey);

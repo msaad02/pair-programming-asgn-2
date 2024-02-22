@@ -69,7 +69,7 @@ public class TransferTransaction extends Transaction
 			source = createAccount(sourceAccountNumber);
 			
 			boolean isOwner = source.verifyOwnership(myCust);
-			if (isOwner == false)
+			if (!isOwner)
 			{
 				transactionErrorMessage = "ERROR: Transfer Transaction: Not owner of selected source account!!";
 				new Event(Event.getLeafLevelClassName(this), "processTransaction",
@@ -81,7 +81,7 @@ public class TransferTransaction extends Transaction
 				dest= createAccount(destAccountNumber);
 
 				isOwner = dest.verifyOwnership(myCust);
-				if (isOwner == false)
+				if (!isOwner)
 				{
 					transactionErrorMessage = "ERROR: Transfer Transaction: Not owner of selected dest account!!";
 					new Event(Event.getLeafLevelClassName(this), "processTransaction",
@@ -92,7 +92,7 @@ public class TransferTransaction extends Transaction
 				{
 					boolean ok = source.checkBalance(amount);
 
-					if (ok == true)
+					if (ok)
 					{
 						source.debit(amount);
 						dest.credit(amount);
@@ -101,7 +101,7 @@ public class TransferTransaction extends Transaction
 						accountUpdateStatusMessage = (String)source.getState("UpdateStatusMessage");
 						transactionErrorMessage = accountUpdateStatusMessage;
 						
-						if ((transactionErrorMessage != null) && (transactionErrorMessage.startsWith("Error") == false))
+						if ((transactionErrorMessage != null) && (!transactionErrorMessage.startsWith("Error")))
 						{
 							dest.update();
 							accountUpdateStatusMessage = (String)dest.getState("UpdateStatusMessage");
@@ -124,7 +124,7 @@ public class TransferTransaction extends Transaction
 			transactionErrorMessage = "ACCOUNT FAILURE: Contact bank immediately!!";
 			new Event(Event.getLeafLevelClassName(this), "processTransaction",
 				"Failed to create account for either number : " + sourceAccountNumber + " or " + destAccountNumber +
-					". Reason: " + ex.toString(),
+					". Reason: " + ex,
 				Event.ERROR);
 
 		}
@@ -133,32 +133,32 @@ public class TransferTransaction extends Transaction
 	//-----------------------------------------------------------
 	public Object getState(String key)
 	{
-		if (key.equals("TransactionError") == true)
+		if (key.equals("TransactionError"))
 		{
 			return transactionErrorMessage;
 		}
 		else
-		if (key.equals("UpdateStatusMessage") == true)
+		if (key.equals("UpdateStatusMessage"))
 		{
 			return accountUpdateStatusMessage;
 		}
 		else
-		if (key.equals("AccountNumberList") == true)
+		if (key.equals("AccountNumberList"))
 		{
 			return myAccountIDs;
 		}
 		else
-		if (key.equals("SourceAccount") == true)
+		if (key.equals("SourceAccount"))
 		{
 			return source;
 		}
 		else
-		if (key.equals("DestAccount") == true)
+		if (key.equals("DestAccount"))
 		{
 			return dest;
 		}
 		else
-		if (key.equals("TransferAmount") == true)
+		if (key.equals("TransferAmount"))
 		{
 			return transferAmount;
 		}
@@ -168,12 +168,12 @@ public class TransferTransaction extends Transaction
 	//-----------------------------------------------------------
 	public void stateChangeRequest(String key, Object value)
 	{
-		if (key.equals("DoYourJob") == true)
+		if (key.equals("DoYourJob"))
 		{
 			doYourJob();
 		}
 		else
-		if (key.equals("DoTransfer") == true)
+		if (key.equals("DoTransfer"))
 		{
 			processTransaction((Properties)value);
 		}

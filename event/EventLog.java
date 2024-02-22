@@ -144,11 +144,11 @@ public class EventLog
 		{
 			// since it's too big, delete the backup file (if it exists)
 			File backupLog = new File(Backup);
-			if(backupLog.exists() == true)
+			if(backupLog.exists())
 				backupLog.delete(); 
 			
 			// move the log file to the backup file
-			if(logFile.renameTo(new File(Backup)) == false)
+			if(!logFile.renameTo(new File(Backup)))
 			{
 				new Event(Event.getLeafLevelClassName(this), "EventLog", "Could not backup log file ", Event.WARNING);
 			}
@@ -231,13 +231,13 @@ public class EventLog
 	{
 
 		// decide if this event should be shown to the user
-		if((event.getSeverityDesc().equals("Warning") == true) ||
-			(event.getSeverityDesc().equals("Information") == true) ||
-			(event.getSeverityDesc().equals("Error") == true) ||
-			(event.getSeverityDesc().equals("Fatal") == true))
+		if((event.getSeverityDesc().equals("Warning")) ||
+			(event.getSeverityDesc().equals("Information")) ||
+			(event.getSeverityDesc().equals("Error")) ||
+			(event.getSeverityDesc().equals("Fatal")))
 		{
 
-			if (allowPopupDisplay == true)
+			if (allowPopupDisplay)
 			{
 				// If we don't have translations, display the raw text
 				if(myMessages == null)
@@ -248,7 +248,7 @@ public class EventLog
 				}
 				else
 				// if there are translations available, but this event doesn't support them, use raw text
-				if (event.getTag().equals("NOTAG") == true)
+				if (event.getTag().equals("NOTAG"))
 				{
 					// TBD
 				}
@@ -272,7 +272,7 @@ public class EventLog
 				{
 					FileOutputStream filestream = new FileOutputStream(LogFile, true);
 					OutputStreamWriter outstream = new OutputStreamWriter(filestream);
-					String eventstring = event.toString() + "\r\n";
+					String eventstring = event + "\r\n";
 					outstream.write(eventstring, 0, eventstring.length());
 					outstream.close();
 					filestream.close();
@@ -373,7 +373,7 @@ public class EventLog
 		for (int cnt = 0; cnt < numOfParams; cnt++)
 		{
 			params[cnt] = (String)paramStringList.nextElement();
-			if (checkFileLength == true)
+			if (checkFileLength)
 				if (params[cnt].length() > MAX_PARAM_LENGTH) {
 					params[cnt] = "..." + params[cnt].substring(params[cnt].length() - MAX_PARAM_LENGTH);
 			}
@@ -396,7 +396,7 @@ public class EventLog
 			if (posOfPlaceHolder < 0)
 				{
 					done = true;
-					paramString.append(source.substring(currentStringPosition, strlen));
+					paramString.append(source, currentStringPosition, strlen);
 				}
 			else
 			{
@@ -409,7 +409,7 @@ public class EventLog
 					if (displaySubErrors)
 						new Event("EventLog", "String replaceParameters", "No close placeholder corresponding to open placeholder in source string "+source, Event.WARNING);
 					// Append the rest of the description string - to return later
-					paramString.append(source.substring(currentStringPosition, strlen));
+					paramString.append(source, currentStringPosition, strlen);
 				}
 				else
 				{
@@ -427,7 +427,7 @@ public class EventLog
 							done = true;
 							if (displaySubErrors)
 								new Event("EventLog", "String replaceParameters", "Specified parameter index "+paramIndexStr+" not an integer ", Event.WARNING);
-							paramString.append(source.substring(currentStringPosition, strlen));				
+							paramString.append(source, currentStringPosition, strlen);
 						}
 					try
 					{
@@ -446,7 +446,7 @@ public class EventLog
 							done = true;
 							if (displaySubErrors)
 								new Event("EventLog", "String replaceParameters", "No parameter provided to correspond to index "+paramIndex, Event.WARNING);
-							paramString.append(source.substring(currentStringPosition, strlen));				
+							paramString.append(source, currentStringPosition, strlen);
 						}
 					if (!done)
 					{

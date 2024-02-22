@@ -107,8 +107,8 @@ abstract public class Persistable
     		String typeValue = columnInfo.getString(6);
 
 			typeValue = typeValue.toLowerCase();
-    		if ((typeValue.startsWith("smallint") == true) || (typeValue.startsWith("mediumint") == true) ||
-    			(typeValue.startsWith("int") == true))
+    		if ((typeValue.startsWith("smallint")) || (typeValue.startsWith("mediumint")) ||
+    			(typeValue.startsWith("int")))
     		{
     			typeValue = "numeric";
    			}
@@ -209,7 +209,7 @@ abstract public class Persistable
 
 			Vector resultSetToReturn = new Vector();
 
-			while (theResultSet.next() == true)
+			while (theResultSet.next())
 			{
 				Properties thisRow = new Properties();
 				for (int cnt = 1; cnt <= numRSColumns; cnt++)
@@ -316,7 +316,7 @@ abstract public class Persistable
 
 			Vector resultSetToReturn = new Vector();
 
-			while (theResultSet.next() == true)
+			while (theResultSet.next())
 			{
 				Properties thisRow = new Properties();
 				for (int cnt = 1; cnt <= numRSColumns; cnt++)
@@ -423,7 +423,7 @@ abstract public class Persistable
 
 			Vector resultSetToReturn = new Vector();
 
-			while (theResultSet.next() == true)
+			while (theResultSet.next())
 			{
 				Properties thisRow = new Properties();
 				for (int cnt = 1; cnt <= numRSColumns; cnt++)
@@ -528,7 +528,7 @@ abstract public class Persistable
 
 			Vector resultSetToReturn = new Vector();
 
-			while (theResultSet.next() == true)
+			while (theResultSet.next())
 			{
 				Properties thisRow = new Properties();
 				for (int cnt = 1; cnt <= numRSColumns; cnt++)
@@ -618,7 +618,7 @@ abstract public class Persistable
 
 			
 
-			return new Integer(returnCode);
+			return Integer.valueOf(returnCode);
 		}
 		catch (SQLException sqle)
 		{
@@ -696,7 +696,7 @@ abstract public class Persistable
 				System.out.println("Persistable.insertAutoIncrementalPersistentState - can't get the auto-increment key");
 			}
 			
-			return new Integer(autoIncKey);
+			return Integer.valueOf(autoIncKey);
 		}
 		catch (SQLException sqle)
 		{
@@ -766,7 +766,7 @@ abstract public class Persistable
 
 			// DEBUG: throw new SQLException("Testing only");
 
-			 return new Integer(returnCode);
+			 return Integer.valueOf(returnCode);
 		}
 		catch (SQLException sqle)
 		{
@@ -832,7 +832,7 @@ abstract public class Persistable
 			// DEBUG: throw new SQLException("Testing only");
 
 			 
-			 return new Integer(returnCode);
+			 return Integer.valueOf(returnCode);
 		}
 		catch (SQLException sqle)
 		{

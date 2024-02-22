@@ -44,7 +44,7 @@ public abstract class EntityBase extends Persistable implements IModel
 	private int referenceCount;		// the number of others using us
 	protected boolean dirty;		// true if the data has changed
 	protected Properties persistentState;	// the field names and values from the database
-	private String myTableName;				// the name of our database table
+	private final String myTableName;				// the name of our database table
 
 	protected Hashtable<String, Scene> myViews;
 	protected Stage myStage;

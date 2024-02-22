@@ -56,7 +56,7 @@ public class Account extends EntityBase implements IView
 				persistentState = new Properties();
 
 				Enumeration allKeys = retrievedAccountData.propertyNames();
-				while (allKeys.hasMoreElements() == true)
+				while (allKeys.hasMoreElements())
 				{
 					String nextKey = (String)allKeys.nextElement();
 					String nextValue = retrievedAccountData.getProperty(nextKey);
@@ -87,7 +87,7 @@ public class Account extends EntityBase implements IView
 		setDependencies();
 		persistentState = new Properties();
 		Enumeration allKeys = props.propertyNames();
-		while (allKeys.hasMoreElements() == true)
+		while (allKeys.hasMoreElements())
 		{
 			String nextKey = (String)allKeys.nextElement();
 			String nextValue = props.getProperty(nextKey);
@@ -110,7 +110,7 @@ public class Account extends EntityBase implements IView
 	//----------------------------------------------------------
 	public Object getState(String key)
 	{
-		if (key.equals("UpdateStatusMessage") == true)
+		if (key.equals("UpdateStatusMessage"))
 			return updateStatusMessage;
 
 		return persistentState.getProperty(key);
@@ -194,14 +194,7 @@ public class Account extends EntityBase implements IView
 
 		double checkAmount = Double.parseDouble(withdrawalAmount);
 
-		if (myBal >= checkAmount)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+        return myBal >= checkAmount;
 	}
 
 	//----------------------------------------------------------

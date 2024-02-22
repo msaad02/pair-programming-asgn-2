@@ -62,7 +62,7 @@ public class BalanceInquiryTransaction extends Transaction
 			myAccount = createAccount(accountNumber);
 
 			boolean isOwner = myAccount.verifyOwnership(myCust);
-			if (isOwner == false)
+			if (!isOwner)
 			{
 				transactionErrorMessage = "ERROR: BalanceInquiry Transaction: Not owner of selected account!!";
 				new Event(Event.getLeafLevelClassName(this), "processTransaction",
@@ -81,7 +81,7 @@ public class BalanceInquiryTransaction extends Transaction
 		{
 			transactionErrorMessage = "ACCOUNT FAILURE: Contact bank immediately!!";
 			new Event(Event.getLeafLevelClassName(this), "processTransaction",
-				"Failed to create account for number : " + accountNumber + ". Reason: " + ex.toString(),
+				"Failed to create account for number : " + accountNumber + ". Reason: " + ex,
 				Event.ERROR);
 
 		}
@@ -90,22 +90,22 @@ public class BalanceInquiryTransaction extends Transaction
 	//-----------------------------------------------------------
 	public Object getState(String key)
 	{
-		if (key.equals("TransactionError") == true)
+		if (key.equals("TransactionError"))
 		{
 			return transactionErrorMessage;
 		}
 		else
-		if (key.equals("AccountNumberList") == true)
+		if (key.equals("AccountNumberList"))
 		{
 			return myAccountIDs;
 		}
 		else
-		if (key.equals("Account") == true)
+		if (key.equals("Account"))
 		{
 			return myAccount;
 		}
 		else
-		if (key.equals("BalanceAmount") == true)
+		if (key.equals("BalanceAmount"))
 		{
 			return balanceAmount;
 		}
@@ -115,12 +115,12 @@ public class BalanceInquiryTransaction extends Transaction
 	//-----------------------------------------------------------
 	public void stateChangeRequest(String key, Object value)
 	{
-		if (key.equals("DoYourJob") == true)
+		if (key.equals("DoYourJob"))
 		{
 			doYourJob();
 		}
 		else
-		if (key.equals("DoBalanceInquiry") == true)
+		if (key.equals("DoBalanceInquiry"))
 		{
 			processTransaction((Properties)value);
 		}

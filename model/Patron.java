@@ -125,15 +125,15 @@ public class Patron extends EntityBase {
     public String toString() {
 
         return "{" +
-                "PatronID: " + (String) this.getState("patronId") +
-                ", Name: " + (String) this.getState("name") +
-                ", Address:" + (String) this.getState("address") +
-                ", City" + (String) this.getState("city") +
-                ", State Code: " + (String) this.getState("stateCode") +
-                ", Zip Code: " + (String) this.getState("zip") +
-                ", Email: " + (String) this.getState("email") +
-                ", Date of Birth: " + (String) this.getState("dateOfBirth") +
-                ", Status: " + (String) this.getState("status") +
+                "PatronID: " + this.getState("patronId") +
+                ", Name: " + this.getState("name") +
+                ", Address:" + this.getState("address") +
+                ", City" + this.getState("city") +
+                ", State Code: " + this.getState("stateCode") +
+                ", Zip Code: " + this.getState("zip") +
+                ", Email: " + this.getState("email") +
+                ", Date of Birth: " + this.getState("dateOfBirth") +
+                ", Status: " + this.getState("status") +
                 "}";
     }
 }

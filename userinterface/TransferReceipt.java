@@ -41,7 +41,7 @@ public class TransferReceipt extends View
 {
 
 	// Model
-	private	String				todaysDateAndTimeString;
+	private final String				todaysDateAndTimeString;
 
 	// GUI controls
 	private Text sourceAccountNumber;

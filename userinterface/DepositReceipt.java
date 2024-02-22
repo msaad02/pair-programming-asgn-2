@@ -41,7 +41,7 @@ public class DepositReceipt extends View
 
 	// Model
 	private String				amountDepositedString;
-	private	String				todaysDateAndTimeString;
+	private final String				todaysDateAndTimeString;
 
 	// GUI controls
 	private Text accountNumber;

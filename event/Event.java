@@ -46,7 +46,7 @@ public class Event
 	public static final int NUMBER_SEVERITY_LEVELS = 5;
 	
 	// String values corresponding to the various event levels
-	public static final String SeverityDescription[] =
+	public static final String[] SeverityDescription =
 	{
 		"Debug",
 		"Information",
@@ -190,7 +190,7 @@ public class Event
 		// cruise through the list of severity descriptions
 		// and see if we can find a match
 		for (int cnt = 0; cnt < NUMBER_SEVERITY_LEVELS; cnt++)
-			if (level.equals(SeverityDescription[cnt]) == true)
+			if (level.equals(SeverityDescription[cnt]))
 				return(cnt);
 
 		// no match, return lowest level - should never happen

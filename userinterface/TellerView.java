@@ -207,7 +207,7 @@ public class TellerView extends View
 	{
 		// STEP 6: Be sure to finish the end of the 'perturbation'
 		// by indicating how the view state gets updated.
-		if (key.equals("LoginError") == true)
+		if (key.equals("LoginError"))
 		{
 			// display the passed text
 			displayErrorMessage((String)value);

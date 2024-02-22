@@ -108,7 +108,7 @@ public class BalanceInquiryTransactionView extends View
        		     	clearErrorMessage(); 
 			// do the inquiry
 			
-			String selectedAccountNumber = (String)accountNumbers.getValue();
+			String selectedAccountNumber = accountNumbers.getValue();
 			processAccountnumber(selectedAccountNumber);
             	     }
         	});

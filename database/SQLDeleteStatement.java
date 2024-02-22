@@ -60,7 +60,7 @@ public class SQLDeleteStatement extends SQLStatement
 		if (whereValues != null)
 		{
 			Enumeration theWhereColumns = whereValues.propertyNames();
-			while (theWhereColumns.hasMoreElements() == true)
+			while (theWhereColumns.hasMoreElements())
 			{
 				if (theWhereString.equals(""))
 				{
@@ -90,7 +90,7 @@ public class SQLDeleteStatement extends SQLStatement
 
 					actualType = actualType.toLowerCase();
 
-					if (actualType.equals("numeric") == true)
+					if (actualType.equals("numeric"))
 					{
 						theWhereString += theColumnName + " = " + theColumnValue;
 					}

@@ -65,7 +65,7 @@ public class DepositTransaction extends Transaction
 
 				myAccount = createAccount(accountNumber);
 				boolean isOwner = myAccount.verifyOwnership(myCust);
-				if (isOwner == false)
+				if (!isOwner)
 				{
 					transactionErrorMessage = "ERROR: Deposit Transaction: Not owner of selected account!!";
 					new Event(Event.getLeafLevelClassName(this), "processTransaction",
@@ -81,7 +81,7 @@ public class DepositTransaction extends Transaction
 			{
 				transactionErrorMessage = "ACCOUNT FAILURE: Contact bank immediately!!";
 				new Event(Event.getLeafLevelClassName(this), "processTransaction",
-					"Failed to create account for number : " + accountNumber + ". Reason: " + ex.toString(),
+					"Failed to create account for number : " + accountNumber + ". Reason: " + ex,
 					Event.ERROR);
 
 			}
@@ -105,27 +105,27 @@ public class DepositTransaction extends Transaction
 	//-----------------------------------------------------------
 	public Object getState(String key)
 	{
-		if (key.equals("TransactionError") == true)
+		if (key.equals("TransactionError"))
 		{
 			return transactionErrorMessage;
 		}
 		else
-		if (key.equals("UpdateStatusMessage") == true)
+		if (key.equals("UpdateStatusMessage"))
 		{
 			return accountUpdateStatusMessage;
 		}
 		else
-		if (key.equals("AccountNumberList") == true)
+		if (key.equals("AccountNumberList"))
 		{
 			return myAccountIDs;
 		}
 		else
-		if (key.equals("Account") == true)
+		if (key.equals("Account"))
 		{
 			return myAccount;
 		}
 		else
-		if (key.equals("DepositAmount") == true)
+		if (key.equals("DepositAmount"))
 		{
 			return depositAmount;
 		}
@@ -137,12 +137,12 @@ public class DepositTransaction extends Transaction
 	{
 		// DEBUG System.out.println("DepositTransaction.sCR: key: " + key);
 
-		if (key.equals("DoYourJob") == true)
+		if (key.equals("DoYourJob"))
 		{
 			doYourJob();
 		}
 		else
-		if ((key.equals("AccountNumber") == true) || (key.equals("Amount") == true))
+		if ((key.equals("AccountNumber")) || (key.equals("Amount")))
 		{
 			processTransaction((Properties)value);
 		}

@@ -32,7 +32,7 @@ public interface ISlideShow
 {
 	
 	/** Swap to the view indicated by the String parameter */
-	public void swapToView(IView viewName);
+    void swapToView(IView viewName);
 }
 
 //**************************************************************

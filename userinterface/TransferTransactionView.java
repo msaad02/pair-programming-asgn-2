@@ -221,7 +221,7 @@ public class TransferTransactionView extends View
 		String selectedSourceAccountNumber = sourceAccountNumbers.getValue();
 		String selectedDestAccountNumber = destAccountNumbers.getValue();
 
-		if (selectedSourceAccountNumber.equals(selectedDestAccountNumber) == true)
+		if (selectedSourceAccountNumber.equals(selectedDestAccountNumber))
 		{
 			displayErrorMessage("ERROR: FROM and TO accounts must be different");
 			return;
@@ -278,7 +278,7 @@ public class TransferTransactionView extends View
 	//---------------------------------------------------------
 	public void updateState(String key, Object value)
 	{
-		if (key.equals("TransactionError") == true)
+		if (key.equals("TransactionError"))
 		{
 			String val = (String)value;
 			displayErrorMessage(val);

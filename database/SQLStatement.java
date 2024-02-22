@@ -52,7 +52,7 @@ public abstract class SQLStatement
 		int indexOfEscapeChar = inString.indexOf(characterToEscape);
 		boolean allDone = (indexOfEscapeChar == -1);
 
-		while (allDone == false) // in other words, there is still an escape char to handle
+		while (!allDone) // in other words, there is still an escape char to handle
 		{
 			String prefix = inString.substring(0, indexOfEscapeChar);
 			outString += prefix;

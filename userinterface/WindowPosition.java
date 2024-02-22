@@ -24,7 +24,7 @@ import javafx.stage.Screen;
 //==============================================================
 public class WindowPosition 
 {
-	 private static Rectangle2D primaryScreenBounds = 
+	 private static final Rectangle2D primaryScreenBounds =
 		Screen.getPrimary().getVisualBounds();
 
 	

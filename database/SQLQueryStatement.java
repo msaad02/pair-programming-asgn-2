@@ -64,10 +64,10 @@ public class SQLQueryStatement extends SQLStatement
 		
 		// add the fields from the schema, skip the tablename
 		Enumeration fields = projectionSchema.propertyNames();
-		while (fields.hasMoreElements() == true)
+		while (fields.hasMoreElements())
 		{
 			String field = (String)fields.nextElement();
-			if(field.equals("TableName") != true)
+			if(!field.equals("TableName"))
 			{
 				// skip the leading comma if we're at the beginning
 				if(theSQLStatement.length() > 7)
@@ -87,7 +87,7 @@ public class SQLQueryStatement extends SQLStatement
 		if (selectionValues != null)
 		{
 			Enumeration theWhereFields = selectionValues.propertyNames();
-			while (theWhereFields.hasMoreElements() == true)
+			while (theWhereFields.hasMoreElements())
 			{
 				String theConjunctionClause = "";
 				
@@ -118,7 +118,7 @@ public class SQLQueryStatement extends SQLStatement
 					if (actualType != null) 
 					{
 						// if the type is numeric, do NOT include quotes
-						if (actualType.equals("numeric") == true)
+						if (actualType.equals("numeric"))
 						{
 							if(theFieldValue.length() > 0)
 								theWhereString += theConjunctionClause + theFieldName + " = " + theFieldValue;	// cannot partial match a numeric
@@ -128,7 +128,7 @@ public class SQLQueryStatement extends SQLStatement
 						
 							// must the a text type 
 							// first check if the value is a field name
-							if (selSchema.containsKey(theFieldValue) == true)
+							if (selSchema.containsKey(theFieldValue))
 							{
 				
 								theWhereString += theConjunctionClause + theFieldName + " = " + theFieldValue;	// two SQL variables are being compared	

@@ -41,7 +41,7 @@ public class BalanceInquiryReceipt extends View
 {
 
 	// Model
-	private	String					  todaysDateAndTimeString;
+	private final String					  todaysDateAndTimeString;
 
 	// GUI controls
 	private Text accountNumber;
