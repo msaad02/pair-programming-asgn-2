@@ -1,0 +1,9 @@
+# Project exclude paths
+/out/
+
+# Other stuff
+classes
+.vscode
+.idea
+dbConfig.ini
+mariadb-java-client-3.0.3.jar
