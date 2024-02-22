@@ -2,8 +2,6 @@
 package model.model2;
 
 // system imports
-import java.util.Vector;
-import javax.swing.JFrame;
 
 // project imports
 

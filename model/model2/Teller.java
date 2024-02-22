@@ -10,7 +10,6 @@ import javafx.scene.Scene;
 
 // project imports
 import impresario.IModel;
-import impresario.ISlideShow;
 import impresario.IView;
 import impresario.ModelRegistry;
 

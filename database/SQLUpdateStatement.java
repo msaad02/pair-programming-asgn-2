@@ -54,20 +54,20 @@ public class SQLUpdateStatement extends SQLStatement
 		theSQLStatement = "UPDATE " + schema.getProperty("TableName");
 		
 		// Construct the SET part of the SQL statement
-		String theSetString = "";
+		StringBuilder theSetString = new StringBuilder();
 		
 		// Now, traverse the update Properties object (used for creating
 		// the SET part of this statement)
 		Enumeration theSetColumns = updateValues.propertyNames();
 		while (theSetColumns.hasMoreElements())
 		{
-			if (theSetString.equals(""))
+			if (theSetString.toString().equals(""))
 			{
-				theSetString += " SET ";
+				theSetString.append(" SET ");
 			}
 			else
 			{
-				theSetString += " , ";
+				theSetString.append(" , ");
 			}
 
 			String theColumnName = (String)theSetColumns.nextElement();
@@ -81,19 +81,19 @@ public class SQLUpdateStatement extends SQLStatement
 			// if the type is numeric, do NOT include quotes
 			if (updateType.equals("numeric"))
 			{
-				theSetString += theColumnName + " = " + theColumnValue;
+				theSetString.append(theColumnName).append(" = ").append(theColumnValue);
 			}
 			else
 			{
 				// must the a text type, include the quotes
-				theSetString += theColumnName + " = '" + theColumnValue + "'";
+				theSetString.append(theColumnName).append(" = '").append(theColumnValue).append("'");
 			}
 		}
 	  
 		theSQLStatement += theSetString;
 
 		// Now, construct the WHERE part of the SQL statement
-		String theWhereString = "";
+		StringBuilder theWhereString = new StringBuilder();
 
 		// Now, traverse the WHERE clause Properties object
 		if (whereValues != null)
@@ -101,13 +101,13 @@ public class SQLUpdateStatement extends SQLStatement
 			Enumeration theWhereColumns = whereValues.propertyNames();
 			while (theWhereColumns.hasMoreElements())
 			{
-				if (theWhereString.equals(""))
+				if (theWhereString.toString().equals(""))
 				{
-		  			theWhereString += " WHERE ";
+		  			theWhereString.append(" WHERE ");
 				}
 				else
 				{
-					theWhereString += " AND ";
+					theWhereString.append(" AND ");
 				}
 
 				String theColumnName = (String)theWhereColumns.nextElement();
@@ -119,12 +119,12 @@ public class SQLUpdateStatement extends SQLStatement
 				// if the type is numeric, do NOT include quotes
 				if (whereType.equals("numeric"))
 				{
-					theWhereString += theColumnName + " = " + theColumnValue;
+					theWhereString.append(theColumnName).append(" = ").append(theColumnValue);
 				}
 				else
 				{
 					// must the a text type, include the quotes
-					theWhereString += theColumnName + " = '" + theColumnValue + "'";
+					theWhereString.append(theColumnName).append(" = '").append(theColumnValue).append("'");
 	
 				}	
 			}

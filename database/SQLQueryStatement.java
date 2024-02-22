@@ -81,7 +81,7 @@ public class SQLQueryStatement extends SQLStatement
 		theSQLStatement += " FROM " + selSchema.getProperty("TableName");
 		
 		// Construct the WHERE part of the SQL statement
-		String theWhereString = "";
+		StringBuilder theWhereString = new StringBuilder();
 		
 		// Now, traverse the WHERE clause Properties object
 		if (selectionValues != null)
@@ -91,7 +91,7 @@ public class SQLQueryStatement extends SQLStatement
 			{
 				String theConjunctionClause = "";
 				
-				if (theWhereString.equals(""))
+				if (theWhereString.toString().equals(""))
 				{
 		  			theConjunctionClause += " WHERE ";
 				}
@@ -105,7 +105,7 @@ public class SQLQueryStatement extends SQLStatement
 				
 				if (theFieldValue.equals("NULL"))
 				{
-					theWhereString += theConjunctionClause + theFieldName + " IS NULL";
+					theWhereString.append(theConjunctionClause).append(theFieldName).append(" IS NULL");
 				}
 				else
 				{
@@ -121,7 +121,7 @@ public class SQLQueryStatement extends SQLStatement
 						if (actualType.equals("numeric"))
 						{
 							if(theFieldValue.length() > 0)
-								theWhereString += theConjunctionClause + theFieldName + " = " + theFieldValue;	// cannot partial match a numeric
+								theWhereString.append(theConjunctionClause).append(theFieldName).append(" = ").append(theFieldValue);	// cannot partial match a numeric
 						}
 						else
 						{
@@ -131,7 +131,7 @@ public class SQLQueryStatement extends SQLStatement
 							if (selSchema.containsKey(theFieldValue))
 							{
 				
-								theWhereString += theConjunctionClause + theFieldName + " = " + theFieldValue;	// two SQL variables are being compared	
+								theWhereString.append(theConjunctionClause).append(theFieldName).append(" = ").append(theFieldValue);	// two SQL variables are being compared
 							}
 							else
 							// else, it is an actual value, include the quotes
@@ -139,7 +139,7 @@ public class SQLQueryStatement extends SQLStatement
 							if (theFieldValue.length() > 0)
 							{
 								
-								theWhereString += theConjunctionClause + theFieldName + " LIKE '" + theFieldValue + "%'";
+								theWhereString.append(theConjunctionClause).append(theFieldName).append(" LIKE '").append(theFieldValue).append("%'");
 							}
 								
 						}
@@ -148,7 +148,7 @@ public class SQLQueryStatement extends SQLStatement
 					else
 					{
 					
-						theWhereString += theConjunctionClause + theFieldName + " = " + theFieldValue;	// two SQL variables are being compared
+						theWhereString.append(theConjunctionClause).append(theFieldName).append(" = ").append(theFieldValue);	// two SQL variables are being compared
 					}	
 
 				}

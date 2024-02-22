@@ -2,10 +2,8 @@
 package model.model2;
 
 // system imports
-import javafx.stage.Stage;
 import javafx.scene.Scene;
 import java.util.Properties;
-import java.util.Vector;
 
 // project imports
 import event.Event;

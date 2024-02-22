@@ -15,7 +15,6 @@ import event.Event;
 import impresario.*;
 
 import userinterface.MainStageContainer;
-import userinterface.View;
 import userinterface.WindowPosition;
 
 /** The class containing the Transaction for the ATM application */

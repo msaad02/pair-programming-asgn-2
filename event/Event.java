@@ -27,7 +27,7 @@ import java.util.Locale;
 import java.text.DateFormat;
 
 // project imports
-import common.StringList;
+
 
 /** 
  * The destination class for events in the system. The current 

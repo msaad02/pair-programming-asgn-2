@@ -47,7 +47,7 @@ public abstract class SQLStatement
 	protected String insertEscapes(String inString)
 	{
 		// define our local data and constants
-		String outString = "";
+		StringBuilder outString = new StringBuilder();
 		int inStringLen = inString.length();
 		int indexOfEscapeChar = inString.indexOf(characterToEscape);
 		boolean allDone = (indexOfEscapeChar == -1);
@@ -55,9 +55,9 @@ public abstract class SQLStatement
 		while (!allDone) // in other words, there is still an escape char to handle
 		{
 			String prefix = inString.substring(0, indexOfEscapeChar);
-			outString += prefix;
-			outString += escapeString;
-			outString += inString.charAt(indexOfEscapeChar);
+			outString.append(prefix);
+			outString.append(escapeString);
+			outString.append(inString.charAt(indexOfEscapeChar));
 			
 			if (indexOfEscapeChar + 1 >= inStringLen)
 			{
@@ -72,9 +72,9 @@ public abstract class SQLStatement
 			}
 		} // while
 
-		outString += inString;
+		outString.append(inString);
 		
-		return outString;
+		return outString.toString();
 	}
 	
 	

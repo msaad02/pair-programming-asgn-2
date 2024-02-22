@@ -81,7 +81,7 @@ public class SQLQueryStatementWithExactMatches extends SQLStatement
 		theSQLStatement += " FROM " + selSchema.getProperty("TableName");
 		
 		// Construct the WHERE part of the SQL statement
-		String theWhereString = "";
+		StringBuilder theWhereString = new StringBuilder();
 		
 		// Now, traverse the WHERE clause Properties object
 		if (selectionValues != null)
@@ -91,7 +91,7 @@ public class SQLQueryStatementWithExactMatches extends SQLStatement
 			{
 				String theConjunctionClause = "";
 				
-				if (theWhereString.equals(""))
+				if (theWhereString.toString().equals(""))
 				{
 		  			theConjunctionClause += " WHERE ";
 				}
@@ -105,7 +105,7 @@ public class SQLQueryStatementWithExactMatches extends SQLStatement
 				
 				if (theFieldValue.equals("NULL"))
 				{
-					theWhereString += theConjunctionClause + theFieldName + " IS NULL";
+					theWhereString.append(theConjunctionClause).append(theFieldName).append(" IS NULL");
 				}
 				else
 				{
@@ -120,27 +120,27 @@ public class SQLQueryStatementWithExactMatches extends SQLStatement
 						if (actualType.equals("numeric"))
 						{
 							if(theFieldValue.length() > 0)
-								theWhereString += theConjunctionClause + theFieldName + " = " + theFieldValue;	// cannot partial match a numeric
+								theWhereString.append(theConjunctionClause).append(theFieldName).append(" = ").append(theFieldValue);	// cannot partial match a numeric
 						}
 						else
 						{	// must the a text type 
 							// first check if the value is a field name
 							if (selSchema.containsKey(theFieldValue))
 							{
-								theWhereString += theConjunctionClause + theFieldName + " = " + theFieldValue;	// two SQL variables are being compared	
+								theWhereString.append(theConjunctionClause).append(theFieldName).append(" = ").append(theFieldValue);	// two SQL variables are being compared
 							}
 							else
 							// else, it is an actual value, include the quotes
 							// if theFieldValue is zero length, leave the quotes out (search for blank field)
 							if (theFieldValue.length() > 0)
 							{
-								theWhereString += theConjunctionClause + theFieldName + " = '" + theFieldValue + "'";
+								theWhereString.append(theConjunctionClause).append(theFieldName).append(" = '").append(theFieldValue).append("'");
 							}
 						}
 					}
 					else
 					{
-						theWhereString += theConjunctionClause + theFieldName + " = " + theFieldValue;	// two SQL variables are being compared
+						theWhereString.append(theConjunctionClause).append(theFieldName).append(" = ").append(theFieldValue);	// two SQL variables are being compared
 					}	
 
 				}

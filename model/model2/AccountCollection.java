@@ -9,7 +9,6 @@ import javafx.scene.Scene;
 // project imports
 import exception.InvalidPrimaryKeyException;
 import event.Event;
-import database.*;
 
 import impresario.IView;
 

@@ -4,12 +4,10 @@ package model.model2;
 // system imports
 import java.util.Properties;
 import java.util.Vector;
-import javax.swing.JFrame;
 
 // project imports
 import exception.InvalidPrimaryKeyException;
 import event.Event;
-import database.*;
 
 import impresario.IView;
 

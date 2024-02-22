@@ -54,7 +54,7 @@ public class SQLDeleteStatement extends SQLStatement
 		theSQLStatement = "DELETE FROM " + schema.getProperty("TableName");
 
 		// Construct the WHERE part of the SQL statement
-		String theWhereString = "";
+		StringBuilder theWhereString = new StringBuilder();
 
 		// Now, traverse the WHERE clause Properties object
 		if (whereValues != null)
@@ -62,13 +62,13 @@ public class SQLDeleteStatement extends SQLStatement
 			Enumeration theWhereColumns = whereValues.propertyNames();
 			while (theWhereColumns.hasMoreElements())
 			{
-				if (theWhereString.equals(""))
+				if (theWhereString.toString().equals(""))
 				{
-					theWhereString += " WHERE ";
+					theWhereString.append(" WHERE ");
 				}
 				else
 				{
-					theWhereString += " AND ";
+					theWhereString.append(" AND ");
 				}
 
 				String theColumnName = (String)theWhereColumns.nextElement();
@@ -76,7 +76,7 @@ public class SQLDeleteStatement extends SQLStatement
 
 				if (theColumnValue.equals("NULL"))
 				{
-					theWhereString += theColumnName + " IS NULL";
+					theWhereString.append(theColumnName).append(" IS NULL");
 				}
 				else
 				{
@@ -92,11 +92,11 @@ public class SQLDeleteStatement extends SQLStatement
 
 					if (actualType.equals("numeric"))
 					{
-						theWhereString += theColumnName + " = " + theColumnValue;
+						theWhereString.append(theColumnName).append(" = ").append(theColumnValue);
 					}
 					else
 					{
-						theWhereString += theColumnName + " = '" + theColumnValue + "'";
+						theWhereString.append(theColumnName).append(" = '").append(theColumnValue).append("'");
 
 					}
 				}

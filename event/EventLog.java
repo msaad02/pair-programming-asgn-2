@@ -452,7 +452,7 @@ public class EventLog
 					{
 						// If all is OK, we append the description string till the beginning of the open placeholder position,
 						// followed by an append of the actual parameter retrieved
-						paramString.append(source.substring(currentStringPosition, posOfPlaceHolder)+paramValue);
+						paramString.append(source.substring(currentStringPosition, posOfPlaceHolder)).append(paramValue);
 						
 						// And then we augment the pointer to the current string position - to consider in the next
 						// iteration of the loop - to point just past the position of the close placeholder

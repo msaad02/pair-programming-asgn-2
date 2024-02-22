@@ -69,7 +69,7 @@ public class SQLSelectStatement extends SQLStatement
 		theSQLStatement += " FROM " + schema.getProperty("TableName");
 		
 		// Construct the WHERE part of the SQL statement
-		String theWhereString = "";
+		StringBuilder theWhereString = new StringBuilder();
 	
 		// Now, traverse the WHERE clause Properties object
 		if (whereValues != null)
@@ -86,7 +86,7 @@ public class SQLSelectStatement extends SQLStatement
 				
 					String theConjunctionClause = "";
 				
-					if (theWhereString.equals(""))
+					if (theWhereString.toString().equals(""))
 					{
 		  				theConjunctionClause += " WHERE ";
 					}
@@ -97,7 +97,7 @@ public class SQLSelectStatement extends SQLStatement
 	
 					if (theFieldValue.equals("NULL"))
 					{
-						theWhereString += theConjunctionClause + theFieldName + " IS NULL";
+						theWhereString.append(theConjunctionClause).append(theFieldName).append(" IS NULL");
 					}
 					else
 					{
@@ -107,12 +107,12 @@ public class SQLSelectStatement extends SQLStatement
 						// if the type is numeric, do NOT include quotes.
 						if ((actualType != null) && (actualType.equals("numeric")))
 						{
-							theWhereString += theConjunctionClause + theFieldName + " = " + theFieldValue;
+							theWhereString.append(theConjunctionClause).append(theFieldName).append(" = ").append(theFieldValue);
 						}
 						else
 						{
 							// must the a text type, include the quotes.
-							theWhereString += theConjunctionClause + theFieldName + " = '" + theFieldValue + "'";
+							theWhereString.append(theConjunctionClause).append(theFieldName).append(" = '").append(theFieldValue).append("'");
 						}
 					}	
 

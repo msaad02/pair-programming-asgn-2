@@ -53,8 +53,8 @@ public class SQLInsertStatement extends SQLStatement
 		theSQLStatement = "INSERT INTO " + schema.getProperty("TableName");
 
 		// Construct the column name list and values part of the SQL statement
-		String theColumnNamesList = "";
-		String theValuesString = "";
+		StringBuilder theColumnNamesList = new StringBuilder();
+		StringBuilder theValuesString = new StringBuilder();
 
 		// Now, traverse the Properties object. In this case, this loop
 		// must go at least one or we will get an error back from the db
@@ -63,15 +63,15 @@ public class SQLInsertStatement extends SQLStatement
 		while (theValuesColumns.hasMoreElements())
 		{
 		
-			if ((theValuesString.equals("")) && (theColumnNamesList.equals("")))
+			if ((theValuesString.toString().equals("")) && (theColumnNamesList.toString().equals("")))
 			{
-		  		theValuesString += " VALUES ( ";
-				theColumnNamesList += " ( ";
+		  		theValuesString.append(" VALUES ( ");
+				theColumnNamesList.append(" ( ");
 			}
 			else
 			{
-				theValuesString += " , ";
-				theColumnNamesList += " , ";
+				theValuesString.append(" , ");
+				theColumnNamesList.append(" , ");
 			}
 
 		
@@ -79,7 +79,7 @@ public class SQLInsertStatement extends SQLStatement
 			// System.out.println("The column name is " + theColumnName);
 			String theColumnValue = insertEscapes(insertValues.getProperty(theColumnName));
 			// System.out.println("The column value is " + theColumnValue);
-			theColumnNamesList += theColumnName;
+			theColumnNamesList.append(theColumnName);
 			//	System.out.println("The list is " + theColumnNamesList);
 
 			//System.out.println("Checking insertType");
@@ -89,22 +89,22 @@ public class SQLInsertStatement extends SQLStatement
 
 			if (insertType.equals("numeric"))
 			{
-				theValuesString += theColumnValue;
+				theValuesString.append(theColumnValue);
 				//	System.out.println("Value string updated: " + theValuesString);
 			}
 			else
 			{
-				theValuesString += "'" + theColumnValue + "'";
+				theValuesString.append("'").append(theColumnValue).append("'");
 				// System.out.println("2 - Value string updated: " + theValuesString);
 			}
 
 		} // end while
 
-		if ((!theValuesString.equals("")) && (!theColumnNamesList.equals("")))
+		if ((!theValuesString.toString().equals("")) && (!theColumnNamesList.toString().equals("")))
 		// this must be the case for an insert statement
 		{
-			theValuesString += " ) ";
-			theColumnNamesList += " ) ";
+			theValuesString.append(" ) ");
+			theColumnNamesList.append(" ) ");
 		}
 
 		theSQLStatement += theColumnNamesList;
