@@ -40,13 +40,6 @@ import userinterface.WindowPosition;
 //==============================================================
 public class ATM extends Application {
 
-    private Teller myTeller;        // the main behavior for the application
-
-    /**
-     * Main frame of the application
-     */
-    private Stage mainStage;
-
 
     // start method for this class, the main application object
     //----------------------------------------------------------
@@ -56,7 +49,10 @@ public class ATM extends Application {
 
         // Create the top-level container (main frame) and add contents to it.
         MainStageContainer.setStage(primaryStage, "Brockport Bank ATM Version 3.00");
-        mainStage = MainStageContainer.getInstance();
+        /**
+         * Main frame of the application
+         */
+        Stage mainStage = MainStageContainer.getInstance();
 
         // Finish setting up the stage (ENABLE THE GUI TO BE CLOSED USING THE TOP RIGHT
         // 'X' IN THE WINDOW), and show it.
@@ -68,7 +64,8 @@ public class ATM extends Application {
         });
 
         try {
-            myTeller = new Teller();
+            // the main behavior for the application
+            Teller myTeller = new Teller();
         } catch (Exception exc) {
             System.err.println("ATM.ATM - could not create Teller!");
             new Event(Event.getLeafLevelClassName(this), "ATM.<init>", "Unable to create Teller object", Event.ERROR);

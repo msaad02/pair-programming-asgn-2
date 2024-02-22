@@ -48,9 +48,7 @@ public class BalanceInquiryReceipt extends View
 	private Text todaysDateAndTime;
 	private Text currentBalance;
 
-	private Button okButton;
-
-	// constructor for this class
+    // constructor for this class
 	//----------------------------------------------------------
 	public BalanceInquiryReceipt(IModel trans)
 	{
@@ -130,7 +128,7 @@ public class BalanceInquiryReceipt extends View
 		currentBalance = new Text("                       ");
 		grid.add(currentBalance, 1, 2);
 
-		okButton = new Button("OK");
+        Button okButton = new Button("OK");
  		okButton.setOnAction(new EventHandler<ActionEvent>() {
 
        		     @Override

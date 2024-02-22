@@ -1,4 +1,3 @@
-import exception.InvalidPrimaryKeyException;
 import model.Book;
 import model.Patron;
 import model.BookCollection;
@@ -9,7 +8,7 @@ import java.util.Vector;
 import java.util.Properties;
 import java.util.Scanner;
 
-public class TestProj1 {
+public class TerminalTester {
     public static void main(String[] args) {
 
         // Init BookCollection
