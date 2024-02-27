@@ -108,12 +108,12 @@ public class TransactionChoiceView extends View
 		VBox container = new VBox(15);
 
 		// create the buttons, listen for events, add them to the container
+		// -------------------------------- LOOK AT ME --------------------------------
 		HBox dCont = new HBox(10);
 		dCont.setAlignment(Pos.CENTER);
 		depositButton = new Button("Deposit");
 		depositButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
 		depositButton.setOnAction(new EventHandler<ActionEvent>() {
-
        		     @Override
        		     public void handle(ActionEvent e) {
        		     	myModel.stateChangeRequest("Deposit", null);    
@@ -122,6 +122,9 @@ public class TransactionChoiceView extends View
 		dCont.getChildren().add(depositButton);
 
 		container.getChildren().add(dCont);
+		// -------------------------------- STOP LOOKING AT ME --------------------------------
+
+
 
 		HBox wCont = new HBox(10);
 		wCont.setAlignment(Pos.CENTER);

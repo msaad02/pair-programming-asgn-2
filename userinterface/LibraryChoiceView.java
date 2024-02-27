@@ -27,18 +27,15 @@ public class LibraryChoiceView extends View
 {
 
     // other private data
-    private final int labelWidth = 120;
-    private final int labelHeight = 25;
+//    private final int labelWidth = 120;
+//    private final int labelHeight = 25;
 
     // GUI components
-
-    private Button depositButton;
-    private Button withdrawButton;
-    private Button transferButton;
-    private Button balanceInquiryButton;
-    private Button imposeServiceChargeButton;
-
-    private Button cancelButton;
+    private Button insertBookButton;
+    private Button insertPatronButton;
+    private Button searchBooksButton;
+    private Button searchPatronsButton;
+    private Button doneButton;
 
     private MessageView statusLog;
 
@@ -54,9 +51,6 @@ public class LibraryChoiceView extends View
 
         // Add a title for this panel
         container.getChildren().add(createTitle());
-
-        // how do you add white space?
-        container.getChildren().add(new Label(" "));
 
         // create our GUI components, add them to this Container
         container.getChildren().add(createFormContents());
@@ -74,28 +68,13 @@ public class LibraryChoiceView extends View
     //-------------------------------------------------------------
     private VBox createTitle()
     {
-        VBox container = new VBox(10);
-        Text titleText = new Text("       Brockport Bank ATM          ");
-        titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        VBox container = new VBox(12);
+        Text titleText = new Text("LIBRARY SYSTEM");
+        titleText.setFont(Font.font("Arial", FontWeight.BOLD, 25));
         titleText.setWrappingWidth(300);
         titleText.setTextAlignment(TextAlignment.CENTER);
         titleText.setFill(Color.DARKGREEN);
         container.getChildren().add(titleText);
-
-        String accountHolderGreetingName = (String)myModel.getState("Name");
-        Text welcomeText = new Text("Welcome, " + accountHolderGreetingName + "!");
-        welcomeText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-        welcomeText.setWrappingWidth(300);
-        welcomeText.setTextAlignment(TextAlignment.CENTER);
-        welcomeText.setFill(Color.DARKGREEN);
-        container.getChildren().add(welcomeText);
-
-        Text inquiryText = new Text("What do you wish to do today?");
-        inquiryText.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-        inquiryText.setWrappingWidth(300);
-        inquiryText.setTextAlignment(TextAlignment.CENTER);
-        inquiryText.setFill(Color.BLACK);
-        container.getChildren().add(inquiryText);
 
         return container;
     }
@@ -111,91 +90,80 @@ public class LibraryChoiceView extends View
         // create the buttons, listen for events, add them to the container
         HBox dCont = new HBox(10);
         dCont.setAlignment(Pos.CENTER);
-        depositButton = new Button("Deposit");
-        depositButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-        depositButton.setOnAction(new EventHandler<ActionEvent>() {
+        insertBookButton = new Button("Insert Book");
+        insertBookButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        insertBookButton.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("Deposit", null);
+                myModel.stateChangeRequest("insertBook", null);
             }
         });
-        dCont.getChildren().add(depositButton);
+        dCont.getChildren().add(insertBookButton);
 
         container.getChildren().add(dCont);
 
         HBox wCont = new HBox(10);
         wCont.setAlignment(Pos.CENTER);
-        withdrawButton = new Button("Withdraw");
-        withdrawButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-        withdrawButton.setOnAction(new EventHandler<ActionEvent>() {
+        insertPatronButton = new Button("Insert Patron");
+        insertPatronButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        insertPatronButton.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("Withdraw", null);
+                myModel.stateChangeRequest("insertPatron", null);
             }
         });
-        wCont.getChildren().add(withdrawButton);
+        wCont.getChildren().add(insertPatronButton);
 
         container.getChildren().add(wCont);
 
         HBox tCont = new HBox(10);
         tCont.setAlignment(Pos.CENTER);
-        transferButton = new Button("Transfer");
-        transferButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-        transferButton.setOnAction(new EventHandler<ActionEvent>() {
-
+        searchBooksButton = new Button("Search Books");
+        searchBooksButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        searchBooksButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("Transfer", null);
+                myModel.stateChangeRequest("searchBooks", null);
             }
         });
-        tCont.getChildren().add(transferButton);
+        tCont.getChildren().add(searchBooksButton);
 
         container.getChildren().add(tCont);
 
         HBox biCont = new HBox(10);
         biCont.setAlignment(Pos.CENTER);
-        balanceInquiryButton = new Button("Balance Inquiry");
-        balanceInquiryButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-        balanceInquiryButton.setOnAction(new EventHandler<ActionEvent>() {
+        searchPatronsButton = new Button("Search Patrons");
+        searchPatronsButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        searchPatronsButton.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("BalanceInquiry", null);
+                myModel.stateChangeRequest("searchPatrons", null);
             }
         });
-        biCont.getChildren().add(balanceInquiryButton);
+        biCont.getChildren().add(searchPatronsButton);
 
         container.getChildren().add(biCont);
 
-        HBox iscCont = new HBox(10);
-        iscCont.setAlignment(Pos.CENTER);
-        imposeServiceChargeButton = new Button("Impose Service Charge");
-        imposeServiceChargeButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-        imposeServiceChargeButton.setOnAction(new EventHandler<ActionEvent>() {
 
-            @Override
-            public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("ImposeServiceCharge", null);
-            }
-        });
-        iscCont.getChildren().add(imposeServiceChargeButton);
+        // how do you add white space?
+        container.getChildren().add(new Label(" "));
 
-        container.getChildren().add(iscCont);
 
         HBox doneCont = new HBox(10);
         doneCont.setAlignment(Pos.CENTER);
-        cancelButton = new Button("Logout");
-        cancelButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-        cancelButton.setOnAction(new EventHandler<ActionEvent>() {
+        doneButton = new Button("Done");
+        doneButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        doneButton.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent e) {
                 myModel.stateChangeRequest("Logout", null);
             }
         });
-        doneCont.getChildren().add(cancelButton);
+        doneCont.getChildren().add(doneButton);
 
         container.getChildren().add(doneCont);
 
@@ -204,9 +172,7 @@ public class LibraryChoiceView extends View
 
     // Create the status log field
     //-------------------------------------------------------------
-    private MessageView createStatusLog(String initialMessage)
-    {
-
+    private MessageView createStatusLog(String initialMessage) {
         statusLog = new MessageView(initialMessage);
 
         return statusLog;
