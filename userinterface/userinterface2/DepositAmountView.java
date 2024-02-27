@@ -24,6 +24,7 @@ import java.util.Properties;
 
 // project imports
 import impresario.IModel;
+import userinterface.View;
 
 /** The class containing the Deposit Amount View  for the ATM application */
 //==============================================================

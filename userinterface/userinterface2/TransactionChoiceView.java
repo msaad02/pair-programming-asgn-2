@@ -18,6 +18,7 @@ import javafx.scene.text.TextAlignment;
 
 // project imports
 import impresario.IModel;
+import userinterface.View;
 
 /** The class containing the Transaction Choice View  for the ATM application */
 //==============================================================

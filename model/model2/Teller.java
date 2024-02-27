@@ -17,7 +17,7 @@ import exception.InvalidPrimaryKeyException;
 import exception.PasswordMismatchException;
 import event.Event;
 import userinterface.userinterface2.MainStageContainer;
-import userinterface.userinterface2.View;
+import userinterface.View;
 import userinterface.userinterface2.ViewFactory;
 import userinterface.userinterface2.WindowPosition;
 

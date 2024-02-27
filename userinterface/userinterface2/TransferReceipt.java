@@ -24,6 +24,7 @@ import javafx.scene.text.TextAlignment;
 
 // project imports
 import impresario.IModel;
+import userinterface.View;
 
 /** The class containing the Transfer Receipt  for the ATM application */
 //==============================================================

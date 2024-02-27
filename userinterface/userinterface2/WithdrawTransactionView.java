@@ -25,6 +25,7 @@ import java.util.Vector;
 
 // project imports
 import impresario.IModel;
+import userinterface.View;
 
 /** The class containing the Withdraw Transaction View  for the ATM application */
 //==============================================================

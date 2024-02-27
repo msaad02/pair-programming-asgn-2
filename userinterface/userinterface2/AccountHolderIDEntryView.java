@@ -20,6 +20,7 @@ import javafx.scene.text.TextAlignment;
 
 // project imports
 import impresario.IModel;
+import userinterface.View;
 
 /** The class containing the Account Holder ID Entry View for the 'Impose Service Charge' functionality of the  ATM application */
 //==============================================================

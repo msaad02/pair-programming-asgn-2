@@ -24,6 +24,7 @@ import java.util.Vector;
 
 // project imports
 import impresario.IModel;
+import userinterface.View;
 
 /** The class containing the Deposit Transaction View  for the ATM application */
 //==============================================================

@@ -10,7 +10,7 @@
 //************************************************************
 //
 // specify the package
-package userinterface.userinterface2;
+package userinterface;
 
 // system imports
 

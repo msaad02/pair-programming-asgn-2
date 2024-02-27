@@ -23,6 +23,7 @@ import java.util.Vector;
 
 // project imports
 import impresario.IModel;
+import userinterface.View;
 
 /** The class containing the Balance Inquiry Transaction View  for the ATM application */
 //==============================================================

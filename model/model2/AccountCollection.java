@@ -12,7 +12,7 @@ import event.Event;
 
 import impresario.IView;
 
-import userinterface.userinterface2.View;
+import userinterface.View;
 import userinterface.userinterface2.ViewFactory;
 
 

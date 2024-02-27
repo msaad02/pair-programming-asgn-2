@@ -1,6 +1,7 @@
 package userinterface.userinterface2;
 
 import impresario.IModel;
+import userinterface.View;
 
 //==============================================================================
 public class ViewFactory {

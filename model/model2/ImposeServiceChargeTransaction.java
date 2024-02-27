@@ -7,7 +7,7 @@ import java.util.Properties;
 
 // project imports
 
-import userinterface.userinterface2.View;
+import userinterface.View;
 import userinterface.userinterface2.ViewFactory;
 
 /** The class containing the ImposeServiceChargeTransaction for the ATM application */
