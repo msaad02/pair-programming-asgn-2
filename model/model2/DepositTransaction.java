@@ -9,8 +9,8 @@ import java.util.Properties;
 import event.Event;
 import exception.InvalidPrimaryKeyException;
 
-import userinterface.View;
-import userinterface.ViewFactory;
+import userinterface.userinterface2.View;
+import userinterface.userinterface2.ViewFactory;
 
 /** The class containing the DepositTransaction for the ATM application */
 //==============================================================

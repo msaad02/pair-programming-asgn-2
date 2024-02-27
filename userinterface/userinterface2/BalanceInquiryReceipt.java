@@ -1,5 +1,5 @@
 // specify the package
-package userinterface;
+package userinterface.userinterface2;
 
 // system imports
 import java.text.DateFormat;
@@ -25,27 +25,24 @@ import javafx.scene.text.TextAlignment;
 // project imports
 import impresario.IModel;
 
-/** The class containing the Withdraw Receipt  for the ATM application */
+/** The class containing the BalanceInquiry Receipt  for the ATM application */
 //==============================================================
-public class WithdrawReceipt extends View
+public class BalanceInquiryReceipt extends View
 {
 
-	private String				amountWithdrawnString;
-	private final String				todaysDateAndTimeString;
+	// Model
+	private final String					  todaysDateAndTimeString;
 
 	// GUI controls
 	private Text accountNumber;
-	private Text amountWithdrawn;
 	private Text todaysDateAndTime;
 	private Text currentBalance;
 
-	private Button okButton;
-
-	// constructor for this class
+    // constructor for this class
 	//----------------------------------------------------------
-	public WithdrawReceipt(IModel trans)
+	public BalanceInquiryReceipt(IModel trans)
 	{
-		super(trans, "WithdrawReceipt");
+		super(trans, "BalanceInquiryReceipt");
 
 		Calendar todaysCalendar = Calendar.getInstance();	// creation date and time
     		Date todaysDateAndTime = todaysCalendar.getTime();
@@ -53,7 +50,7 @@ public class WithdrawReceipt extends View
     		DateFormat theFormatter = DateFormat.getDateTimeInstance();
     		todaysDateAndTimeString = theFormatter.format(todaysDateAndTime);
 
-    		// create a container for showing the contents
+		// create a container for showing the contents
 		VBox container = new VBox(10);
 		container.setPadding(new Insets(15, 5, 5, 5));
 
@@ -65,10 +62,10 @@ public class WithdrawReceipt extends View
 	
 		populateFields();
 
+
 	}
 
-
-	// Create the container (Node) for the title
+	// Create the Node (HBox) for the title
 	//-------------------------------------------------------------
 	private Node createTitle()
 	{
@@ -85,7 +82,7 @@ public class WithdrawReceipt extends View
 		return container;
 	}
 
-	// Create the form content
+	// Create the main form content
 	//-------------------------------------------------------------
 	private VBox createFormContent()
 	{
@@ -105,34 +102,23 @@ public class WithdrawReceipt extends View
 		accountNumber = new Text("                       ");
 		grid.add(accountNumber, 1, 0);
 
-		Text amountWithdrawnLabel = new Text("Amount Withdrawn : ");
-		amountWithdrawnLabel.setWrappingWidth(150);
-		amountWithdrawnLabel.setTextAlignment(TextAlignment.RIGHT);
-		
-		grid.add(amountWithdrawnLabel, 0, 1);
-
-		amountWithdrawn = new Text("                       ");
-		grid.add(amountWithdrawn, 1, 1);
-
-
-		
 		Text dateAndTimeLabel = new Text("Date/Time : ");
 		dateAndTimeLabel.setWrappingWidth(150);
 		dateAndTimeLabel.setTextAlignment(TextAlignment.RIGHT);
-		grid.add(dateAndTimeLabel, 0, 2);
+		grid.add(dateAndTimeLabel, 0, 1);
 
 		todaysDateAndTime = new Text("                       ");
-		grid.add(todaysDateAndTime, 1, 2);
+		grid.add(todaysDateAndTime, 1, 1);
 
 		Text currentBalanceLabel = new Text("Current Balance  : ");
 		currentBalanceLabel.setWrappingWidth(150);
 		currentBalanceLabel.setTextAlignment(TextAlignment.RIGHT);
-		grid.add(currentBalanceLabel, 0, 3);
+		grid.add(currentBalanceLabel, 0, 2);
 
 		currentBalance = new Text("                       ");
-		grid.add(currentBalance, 1, 3);
+		grid.add(currentBalance, 1, 2);
 
-		okButton = new Button("OK");
+        Button okButton = new Button("OK");
  		okButton.setOnAction(new EventHandler<ActionEvent>() {
 
        		     @Override
@@ -141,7 +127,7 @@ public class WithdrawReceipt extends View
 			 * Process the Cancel button.
 			 * The ultimate result of this action is that the transaction will tell the teller to
 			 * to switch to the transaction choice view. BUT THAT IS NOT THIS VIEW'S CONCERN.
-			 * It simply tells its model (controller) that the deposit receipt was seen, and leaves it
+			 * It simply tells its model (controller) that the balance was seen, and leaves it
 			 * to the model to decide to tell the teller to do the switch back.
 	 		*/
 			//----------------------------------------------------------
@@ -159,7 +145,6 @@ public class WithdrawReceipt extends View
 		return vbox;
 	}
 
-
 	//-------------------------------------------------------------
 	public void populateFields()
 	{
@@ -168,16 +153,15 @@ public class WithdrawReceipt extends View
 
 		todaysDateAndTime.setText(todaysDateAndTimeString);
 
-		String currentBalanceString = (String)((IModel)myModel.getState("Account")).getState("Balance");
+		String currentBalanceString = (String)myModel.getState("BalanceAmount");
 		double currentBalanceVal = Double.parseDouble(currentBalanceString);
-		double amountWithdrawnVal = Double.parseDouble((String)myModel.getState("WithdrawAmount"));
 
 		DecimalFormat df2 = new DecimalFormat("0.00");
 		currentBalance.setText("$ " + df2.format(currentBalanceVal));
-		amountWithdrawn.setText("$ " + df2.format(amountWithdrawnVal));
 
 	}
 
+	
 
 	/**
 	 * Required by interface, but has no role here
@@ -187,7 +171,6 @@ public class WithdrawReceipt extends View
 	{
 
 	}
-
 
 }
 

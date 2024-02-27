@@ -1,8 +1,7 @@
 // specify the package
-package userinterface;
+package userinterface.userinterface2;
 
 // system imports
-import javafx.event.Event;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -10,7 +9,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -26,14 +24,12 @@ import java.util.Vector;
 // project imports
 import impresario.IModel;
 
-/** The class containing the Withdraw Transaction View  for the ATM application */
+/** The class containing the Balance Inquiry Transaction View  for the ATM application */
 //==============================================================
-public class WithdrawTransactionView extends View
+public class BalanceInquiryTransactionView extends View
 {
-
-	// GUI components
+	// GUI controls
 	private ComboBox<String> accountNumbers;
-	private TextField amount;
 	private Button submitButton;
 	private Button cancelButton;
 
@@ -42,9 +38,9 @@ public class WithdrawTransactionView extends View
 
 	// constructor for this class -- takes a model object
 	//----------------------------------------------------------
-	public WithdrawTransactionView(IModel trans)
+	public BalanceInquiryTransactionView(IModel trans)
 	{
-		super(trans, "WithdrawTransactionView");
+		super(trans, "BalanceInquiryTransactionView");
 
 		// create a container for showing the contents
 		VBox container = new VBox(10);
@@ -55,15 +51,12 @@ public class WithdrawTransactionView extends View
 		container.getChildren().add(createFormContent());
 
 		// Error message area
-		container.getChildren().add(createStatusLog("                          "));
+		container.getChildren().add(createStatusLog("                "));
 
 		getChildren().add(container);
 
 		populateFields();
-
-		myModel.subscribe("TransactionError", this);
 	}
-
 
 	// Create the title container
 	//-------------------------------------------------------------
@@ -89,35 +82,17 @@ public class WithdrawTransactionView extends View
 		VBox vbox = new VBox(10);
 
 		GridPane grid = new GridPane();
-        	grid.setAlignment(Pos.CENTER);
-       		grid.setHgap(10);
-        	grid.setVgap(10);
-        	grid.setPadding(new Insets(25, 25, 25, 25));
+        grid.setAlignment(Pos.CENTER);
+       	grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(25, 25, 25, 25));
 
-		// data entry fields
-		Text accountLabel = new Text("Withdrawal account : ");
-		accountLabel.setWrappingWidth(150);
-		accountLabel.setTextAlignment(TextAlignment.RIGHT);
+		Text accountLabel = new Text("Choose Account : ");
 		grid.add(accountLabel, 0, 0);
 
 		accountNumbers = new ComboBox<String>();
 		accountNumbers.setMinSize(100, 20);
 		grid.add(accountNumbers, 1, 0);
-
-		Text amountLabel = new Text("Amount : ");
-		amountLabel.setWrappingWidth(150);
-		amountLabel.setTextAlignment(TextAlignment.RIGHT);
-		grid.add(amountLabel, 0, 1);
-
-		amount = new TextField();
-		amount.setOnAction(new EventHandler<ActionEvent>() {
-
-       		     @Override
-       		     public void handle(ActionEvent e) {
-			processAction(e);
-		     }
-		});
-		grid.add(amount, 1, 1);
 
 		submitButton = new Button("Submit");
  		submitButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -125,8 +100,10 @@ public class WithdrawTransactionView extends View
        		     @Override
        		     public void handle(ActionEvent e) {
        		     	clearErrorMessage(); 
-			// do the deposit
-			processAction(e);
+			// do the inquiry
+			
+			String selectedAccountNumber = accountNumbers.getValue();
+			processAccountnumber(selectedAccountNumber);
             	     }
         	});
 
@@ -139,12 +116,12 @@ public class WithdrawTransactionView extends View
 			 * Process the Cancel button.
 			 * The ultimate result of this action is that the transaction will tell the teller to
 			 * to switch to the transaction choice view. BUT THAT IS NOT THIS VIEW'S CONCERN.
-			 * It simply tells its model (controller) that the withdraw transaction was canceled, and leaves it
+			 * It simply tells its model (controller) that the balance inquiry transaction was canceled, and leaves it
 			 * to the model to decide to tell the teller to do the switch back.
 	 		*/
 			//----------------------------------------------------------
        		     	clearErrorMessage();
-			myModel.stateChangeRequest("CancelWithdraw", null);   
+			myModel.stateChangeRequest("CancelBalanceInquiry", null);   
             	     }
         	});
 
@@ -158,8 +135,7 @@ public class WithdrawTransactionView extends View
 
 		return vbox;
 	}
-
-
+	
 	// Create the status log field
 	//-------------------------------------------------------------
 	private MessageView createStatusLog(String initialMessage)
@@ -188,76 +164,31 @@ public class WithdrawTransactionView extends View
 			}
 		}
 
-		amount.setText("");
-	}
-
-	// process events generated from our GUI components
-	//-------------------------------------------------------------
-	public void processAction(Event evt)
-	{
-		// DEBUG: System.out.println("WithdrawTransactionView.processAction()");
-
-		clearErrorMessage();
-
-		// do the withdraw
-
-		String selectedAccountNumber = accountNumbers.getValue();
-
-		String amountEntered = amount.getText();
-
-		if ((amountEntered == null) || (amountEntered.length() == 0))
-		{
-			displayErrorMessage("Please enter an amount to withdraw");
-		}
-		else
-		{
-			try
-			{
-				double amountVal = Double.parseDouble(amountEntered);
-				if (amountVal <= 0)
-				{
-					displayErrorMessage("Invalid amount: Please re-enter");
-				}
-				else
-				{
-					processAccountnumberAndAmount(selectedAccountNumber, amountEntered);
-				}
-			}
-			catch (Exception ex)
-			{
-				displayErrorMessage("Invalid amount: Please re-enter");
-			}
-
-		}
 	}
 
 
 	/**
-	 * Process account number and amount selected by user.
-	 * Action is to pass this info on to the transaction object
+	 * Process account number selected by user.
+	 * Action is to pass this info on to the transaction object.
 	 */
 	//----------------------------------------------------------
-	private void processAccountnumberAndAmount(String accountNumber,
-		String amount)
+	private void processAccountnumber(String accountNumber)
 	{
 		Properties props = new Properties();
 		props.setProperty("AccountNumber", accountNumber);
-		props.setProperty("Amount", amount);
-		myModel.stateChangeRequest("DoWithdraw", props);
+		myModel.stateChangeRequest("DoBalanceInquiry", props);
 	}
 
-	
-
+	/**
+	 * Required by interface, but has no role here
+	 */
 	//---------------------------------------------------------
 	public void updateState(String key, Object value)
 	{
-		if (key.equals("TransactionError"))
-		{
-			String val = (String)value;
-			displayErrorMessage(val);
-		}
+
 	}
 
+	/**
 	/**
 	 * Display error message
 	 */
@@ -276,5 +207,9 @@ public class WithdrawTransactionView extends View
 		statusLog.clearErrorMessage();
 	}
 
-
 }
+
+//---------------------------------------------------------------
+//	Revision History:
+
+

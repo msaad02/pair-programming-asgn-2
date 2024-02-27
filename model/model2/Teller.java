@@ -16,10 +16,10 @@ import impresario.ModelRegistry;
 import exception.InvalidPrimaryKeyException;
 import exception.PasswordMismatchException;
 import event.Event;
-import userinterface.MainStageContainer;
-import userinterface.View;
-import userinterface.ViewFactory;
-import userinterface.WindowPosition;
+import userinterface.userinterface2.MainStageContainer;
+import userinterface.userinterface2.View;
+import userinterface.userinterface2.ViewFactory;
+import userinterface.userinterface2.WindowPosition;
 
 /** The class containing the Teller  for the ATM application */
 //==============================================================
@@ -61,7 +61,8 @@ public class Teller implements IView, IModel
 		setDependencies();
 
 		// Set up the initial view
-		createAndShowTellerView();
+		// createAndShowTellerView();
+		createAndShowTransactionChoiceView();
 	}
 
 	//-----------------------------------------------------------------------------------

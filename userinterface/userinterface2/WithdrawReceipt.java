@@ -1,5 +1,5 @@
 // specify the package
-package userinterface;
+package userinterface.userinterface2;
 
 // system imports
 import java.text.DateFormat;
@@ -25,35 +25,35 @@ import javafx.scene.text.TextAlignment;
 // project imports
 import impresario.IModel;
 
-/** The class containing the Deposit Receipt  for the ATM application */
+/** The class containing the Withdraw Receipt  for the ATM application */
 //==============================================================
-public class DepositReceipt extends View
+public class WithdrawReceipt extends View
 {
 
-	// Model
-	private String				amountDepositedString;
+	private String				amountWithdrawnString;
 	private final String				todaysDateAndTimeString;
 
 	// GUI controls
 	private Text accountNumber;
-	private Text amountDeposited;
+	private Text amountWithdrawn;
 	private Text todaysDateAndTime;
 	private Text currentBalance;
 
 	private Button okButton;
+
 	// constructor for this class
 	//----------------------------------------------------------
-	public DepositReceipt(IModel trans)
+	public WithdrawReceipt(IModel trans)
 	{
-		super(trans, "DepositReceipt");
+		super(trans, "WithdrawReceipt");
 
 		Calendar todaysCalendar = Calendar.getInstance();	// creation date and time
     		Date todaysDateAndTime = todaysCalendar.getTime();
 
-	    	DateFormat theFormatter = DateFormat.getDateTimeInstance();
+    		DateFormat theFormatter = DateFormat.getDateTimeInstance();
     		todaysDateAndTimeString = theFormatter.format(todaysDateAndTime);
 
-	    	// create a container for showing the contents
+    		// create a container for showing the contents
 		VBox container = new VBox(10);
 		container.setPadding(new Insets(15, 5, 5, 5));
 
@@ -68,7 +68,7 @@ public class DepositReceipt extends View
 	}
 
 
-	// Create the Node (HBox) for the title
+	// Create the container (Node) for the title
 	//-------------------------------------------------------------
 	private Node createTitle()
 	{
@@ -85,7 +85,7 @@ public class DepositReceipt extends View
 		return container;
 	}
 
-	// Create the main form content
+	// Create the form content
 	//-------------------------------------------------------------
 	private VBox createFormContent()
 	{
@@ -100,21 +100,22 @@ public class DepositReceipt extends View
 		Text accountLabel = new Text("Account Number : ");
 		accountLabel.setWrappingWidth(150);
 		accountLabel.setTextAlignment(TextAlignment.RIGHT);
-		
 		grid.add(accountLabel, 0, 0);
 
 		accountNumber = new Text("                       ");
 		grid.add(accountNumber, 1, 0);
 
-		Text amountDepositedLabel = new Text("Amount Deposited : ");
-		amountDepositedLabel.setWrappingWidth(150);
-		amountDepositedLabel.setTextAlignment(TextAlignment.RIGHT);
+		Text amountWithdrawnLabel = new Text("Amount Withdrawn : ");
+		amountWithdrawnLabel.setWrappingWidth(150);
+		amountWithdrawnLabel.setTextAlignment(TextAlignment.RIGHT);
 		
-		grid.add(amountDepositedLabel, 0, 1);
+		grid.add(amountWithdrawnLabel, 0, 1);
 
-		amountDeposited = new Text("                       ");
-		grid.add(amountDeposited, 1, 1);
+		amountWithdrawn = new Text("                       ");
+		grid.add(amountWithdrawn, 1, 1);
 
+
+		
 		Text dateAndTimeLabel = new Text("Date/Time : ");
 		dateAndTimeLabel.setWrappingWidth(150);
 		dateAndTimeLabel.setTextAlignment(TextAlignment.RIGHT);
@@ -158,7 +159,6 @@ public class DepositReceipt extends View
 		return vbox;
 	}
 
-	
 
 	//-------------------------------------------------------------
 	public void populateFields()
@@ -170,11 +170,11 @@ public class DepositReceipt extends View
 
 		String currentBalanceString = (String)((IModel)myModel.getState("Account")).getState("Balance");
 		double currentBalanceVal = Double.parseDouble(currentBalanceString);
-		double amountDepositedVal = Double.parseDouble((String)myModel.getState("DepositAmount"));
+		double amountWithdrawnVal = Double.parseDouble((String)myModel.getState("WithdrawAmount"));
 
 		DecimalFormat df2 = new DecimalFormat("0.00");
 		currentBalance.setText("$ " + df2.format(currentBalanceVal));
-		amountDeposited.setText("$ " + df2.format(amountDepositedVal));
+		amountWithdrawn.setText("$ " + df2.format(amountWithdrawnVal));
 
 	}
 
@@ -188,4 +188,7 @@ public class DepositReceipt extends View
 
 	}
 
+
 }
+
+

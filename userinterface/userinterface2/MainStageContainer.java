@@ -10,7 +10,7 @@
 //************************************************************
 //
 // specify the package
-package userinterface;
+package userinterface.userinterface2;
 
 // system imports
 import javafx.stage.Stage;

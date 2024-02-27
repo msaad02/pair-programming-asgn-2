@@ -1,5 +1,5 @@
 // specify the package
-package userinterface;
+package userinterface.userinterface2;
 
 // system imports
 import java.text.DateFormat;
@@ -25,35 +25,33 @@ import javafx.scene.text.TextAlignment;
 // project imports
 import impresario.IModel;
 
-/** The class containing the Transfer Receipt  for the ATM application */
+/** The class containing the Deposit Receipt  for the ATM application */
 //==============================================================
-public class TransferReceipt extends View
+public class DepositReceipt extends View
 {
 
 	// Model
+	private String				amountDepositedString;
 	private final String				todaysDateAndTimeString;
 
 	// GUI controls
-	private Text sourceAccountNumber;
-	private Text destAccountNumber;
-	private Text amountTransferred;
+	private Text accountNumber;
+	private Text amountDeposited;
 	private Text todaysDateAndTime;
-	private Text sourceCurrentBalance;
-	private Text destCurrentBalance;
+	private Text currentBalance;
 
 	private Button okButton;
-
 	// constructor for this class
 	//----------------------------------------------------------
-	public TransferReceipt(IModel trans)
+	public DepositReceipt(IModel trans)
 	{
-		super(trans, "TransferReceipt");
+		super(trans, "DepositReceipt");
 
 		Calendar todaysCalendar = Calendar.getInstance();	// creation date and time
-	    	Date todaysDateAndTime = todaysCalendar.getTime();
+    		Date todaysDateAndTime = todaysCalendar.getTime();
 
 	    	DateFormat theFormatter = DateFormat.getDateTimeInstance();
-	    	todaysDateAndTimeString = theFormatter.format(todaysDateAndTime);
+    		todaysDateAndTimeString = theFormatter.format(todaysDateAndTime);
 
 	    	// create a container for showing the contents
 		VBox container = new VBox(10);
@@ -66,6 +64,7 @@ public class TransferReceipt extends View
 		getChildren().add(container);
 	
 		populateFields();
+
 	}
 
 
@@ -74,8 +73,8 @@ public class TransferReceipt extends View
 	private Node createTitle()
 	{
 		HBox container = new HBox();
-		container.setAlignment(Pos.CENTER);	
-
+		container.setAlignment(Pos.CENTER);
+		
 		Text titleText = new Text(" Brockport Bank ATM ");
 		titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
 		titleText.setWrappingWidth(300);
@@ -98,53 +97,39 @@ public class TransferReceipt extends View
         	grid.setVgap(10);
         	grid.setPadding(new Insets(25, 25, 25, 25));
 
-		Text sourceAccountLabel = new Text("FROM Account : ");
-		sourceAccountLabel.setWrappingWidth(175);
-		sourceAccountLabel.setTextAlignment(TextAlignment.RIGHT);
-		grid.add(sourceAccountLabel, 0, 0);
+		Text accountLabel = new Text("Account Number : ");
+		accountLabel.setWrappingWidth(150);
+		accountLabel.setTextAlignment(TextAlignment.RIGHT);
+		
+		grid.add(accountLabel, 0, 0);
 
-		sourceAccountNumber = new Text("                       ");
-		grid.add(sourceAccountNumber, 1, 0);
+		accountNumber = new Text("                       ");
+		grid.add(accountNumber, 1, 0);
 
-		Text destAccountLabel = new Text("TO Account : ");
-		destAccountLabel.setWrappingWidth(175);
-		destAccountLabel.setTextAlignment(TextAlignment.RIGHT);
-		grid.add(destAccountLabel, 0, 1);
+		Text amountDepositedLabel = new Text("Amount Deposited : ");
+		amountDepositedLabel.setWrappingWidth(150);
+		amountDepositedLabel.setTextAlignment(TextAlignment.RIGHT);
+		
+		grid.add(amountDepositedLabel, 0, 1);
 
-		destAccountNumber = new Text("                       ");
-		grid.add(destAccountNumber, 1, 1);
-
-		Text amountLabel = new Text("Amount Transferred : ");
-		amountLabel.setWrappingWidth(175);
-		amountLabel.setTextAlignment(TextAlignment.RIGHT);
-		grid.add(amountLabel, 0, 2);
-
-		amountTransferred = new Text("                       ");
-		grid.add(amountTransferred, 1, 2);
+		amountDeposited = new Text("                       ");
+		grid.add(amountDeposited, 1, 1);
 
 		Text dateAndTimeLabel = new Text("Date/Time : ");
-		dateAndTimeLabel.setWrappingWidth(175);
+		dateAndTimeLabel.setWrappingWidth(150);
 		dateAndTimeLabel.setTextAlignment(TextAlignment.RIGHT);
-		grid.add(dateAndTimeLabel, 0, 3);
+		grid.add(dateAndTimeLabel, 0, 2);
 
 		todaysDateAndTime = new Text("                       ");
-		grid.add(todaysDateAndTime, 1, 3);
+		grid.add(todaysDateAndTime, 1, 2);
 
-		Text sourceCurrentBalanceLabel = new Text("New Balance (FROM account) : ");
-		sourceCurrentBalanceLabel.setWrappingWidth(175);
-		sourceCurrentBalanceLabel.setTextAlignment(TextAlignment.RIGHT);
-		grid.add(sourceCurrentBalanceLabel, 0, 4);
+		Text currentBalanceLabel = new Text("Current Balance  : ");
+		currentBalanceLabel.setWrappingWidth(150);
+		currentBalanceLabel.setTextAlignment(TextAlignment.RIGHT);
+		grid.add(currentBalanceLabel, 0, 3);
 
-		sourceCurrentBalance = new Text("                       ");
-		grid.add(sourceCurrentBalance, 1, 4);
-
-		Text destCurrentBalanceLabel = new Text("New Balance (TO account) : ");
-		destCurrentBalanceLabel.setWrappingWidth(175);
-		destCurrentBalanceLabel.setTextAlignment(TextAlignment.RIGHT);
-		grid.add(destCurrentBalanceLabel, 0, 5);
-
-		destCurrentBalance = new Text("                       ");
-		grid.add(destCurrentBalance, 1, 5);
+		currentBalance = new Text("                       ");
+		grid.add(currentBalance, 1, 3);
 
 		okButton = new Button("OK");
  		okButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -155,7 +140,7 @@ public class TransferReceipt extends View
 			 * Process the Cancel button.
 			 * The ultimate result of this action is that the transaction will tell the teller to
 			 * to switch to the transaction choice view. BUT THAT IS NOT THIS VIEW'S CONCERN.
-			 * It simply tells its model (controller) that the transfer receipt was seen, and leaves it
+			 * It simply tells its model (controller) that the deposit receipt was seen, and leaves it
 			 * to the model to decide to tell the teller to do the switch back.
 	 		*/
 			//----------------------------------------------------------
@@ -173,33 +158,27 @@ public class TransferReceipt extends View
 		return vbox;
 	}
 
+	
 
 	//-------------------------------------------------------------
 	public void populateFields()
 	{
-		String sourceAccountID = (String)((IModel)myModel.getState("SourceAccount")).getState("AccountNumber");
-		sourceAccountNumber.setText(sourceAccountID);
-
-		String destAccountID = (String)((IModel)myModel.getState("DestAccount")).getState("AccountNumber");
-		destAccountNumber.setText(destAccountID);
+		String accountID = (String)((IModel)myModel.getState("Account")).getState("AccountNumber");
+		accountNumber.setText(accountID);
 
 		todaysDateAndTime.setText(todaysDateAndTimeString);
 
-		String sourceCurrentBalanceString = (String)((IModel)myModel.getState("SourceAccount")).getState("Balance");
-		String destCurrentBalanceString = (String)((IModel)myModel.getState("DestAccount")).getState("Balance");
-
-		double sourceCurrentBalanceVal = Double.parseDouble(sourceCurrentBalanceString);
-		double destCurrentBalanceVal = Double.parseDouble(destCurrentBalanceString);
-		double amountTransferredVal = Double.parseDouble((String)myModel.getState("TransferAmount"));
+		String currentBalanceString = (String)((IModel)myModel.getState("Account")).getState("Balance");
+		double currentBalanceVal = Double.parseDouble(currentBalanceString);
+		double amountDepositedVal = Double.parseDouble((String)myModel.getState("DepositAmount"));
 
 		DecimalFormat df2 = new DecimalFormat("0.00");
-		sourceCurrentBalance.setText("$ " + df2.format(sourceCurrentBalanceVal));
-		destCurrentBalance.setText("$ " + df2.format(destCurrentBalanceVal));
-		amountTransferred.setText("$ " + df2.format(amountTransferredVal));
+		currentBalance.setText("$ " + df2.format(currentBalanceVal));
+		amountDeposited.setText("$ " + df2.format(amountDepositedVal));
 
 	}
 
-	
+
 	/**
 	 * Required by interface, but has no role here
 	 */
@@ -210,6 +189,3 @@ public class TransferReceipt extends View
 	}
 
 }
-
-//---------------------------------------------------------------
-//	Revision History:

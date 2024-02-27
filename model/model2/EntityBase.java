@@ -25,8 +25,8 @@ import impresario.ModelRegistry;
 import impresario.IModel;
 import impresario.IView;
 import event.Event;
-import userinterface.MainStageContainer;
-import userinterface.WindowPosition;
+import userinterface.userinterface2.MainStageContainer;
+import userinterface.userinterface2.WindowPosition;
 
 
 /** The superclass for all Fast Trax Model Entities that are also

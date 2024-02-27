@@ -14,8 +14,8 @@ import event.Event;
 
 import impresario.*;
 
-import userinterface.MainStageContainer;
-import userinterface.WindowPosition;
+import userinterface.userinterface2.MainStageContainer;
+import userinterface.userinterface2.WindowPosition;
 
 /** The class containing the Transaction for the ATM application */
 //==============================================================

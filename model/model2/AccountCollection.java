@@ -12,8 +12,8 @@ import event.Event;
 
 import impresario.IView;
 
-import userinterface.View;
-import userinterface.ViewFactory;
+import userinterface.userinterface2.View;
+import userinterface.userinterface2.ViewFactory;
 
 
 /** The class containing the AccountCollection for the ATM application */
