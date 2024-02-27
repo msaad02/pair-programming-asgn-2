@@ -16,10 +16,12 @@ import impresario.ModelRegistry;
 import exception.InvalidPrimaryKeyException;
 import exception.PasswordMismatchException;
 import event.Event;
+import model.TransactionFactory;
 import userinterface.userinterface2.MainStageContainer;
 import userinterface.View;
 import userinterface.userinterface2.ViewFactory;
 import userinterface.userinterface2.WindowPosition;
+import model.Transaction;
 
 /** The class containing the Teller  for the ATM application */
 //==============================================================
@@ -212,8 +214,8 @@ public class Teller implements IView, IModel
 	{
 		try
 		{
-			Transaction trans = TransactionFactory.createTransaction(
-				transactionType, myAccountHolder);
+			//TransactionFactory transFactory = new TransactionFactory();
+			Transaction trans = TransactionFactory.createTransaction(transactionType, myAccountHolder);
 
 			trans.subscribe("CancelTransaction", this);
 			trans.stateChangeRequest("DoYourJob", "");

@@ -88,6 +88,8 @@ public class LibraryChoiceView extends View
         VBox container = new VBox(15);
 
         // create the buttons, listen for events, add them to the container
+
+        // Insert Book Button
         HBox dCont = new HBox(10);
         dCont.setAlignment(Pos.CENTER);
         insertBookButton = new Button("Insert Book");
@@ -103,6 +105,7 @@ public class LibraryChoiceView extends View
 
         container.getChildren().add(dCont);
 
+        // Insert Patron Button
         HBox wCont = new HBox(10);
         wCont.setAlignment(Pos.CENTER);
         insertPatronButton = new Button("Insert Patron");
@@ -118,6 +121,7 @@ public class LibraryChoiceView extends View
 
         container.getChildren().add(wCont);
 
+        // Search Books Button
         HBox tCont = new HBox(10);
         tCont.setAlignment(Pos.CENTER);
         searchBooksButton = new Button("Search Books");
@@ -132,6 +136,7 @@ public class LibraryChoiceView extends View
 
         container.getChildren().add(tCont);
 
+        // Search Patrons Button
         HBox biCont = new HBox(10);
         biCont.setAlignment(Pos.CENTER);
         searchPatronsButton = new Button("Search Patrons");
@@ -147,11 +152,10 @@ public class LibraryChoiceView extends View
 
         container.getChildren().add(biCont);
 
-
-        // how do you add white space?
+        // Add white space to follow design spec
         container.getChildren().add(new Label(" "));
 
-
+        // Done Button
         HBox doneCont = new HBox(10);
         doneCont.setAlignment(Pos.CENTER);
         doneButton = new Button("Done");

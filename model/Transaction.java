@@ -12,6 +12,9 @@ import javafx.scene.Scene;
 import exception.InvalidPrimaryKeyException;
 import event.Event;
 
+// temporary imports
+import model.model2.*;
+
 import impresario.*;
 
 import userinterface.userinterface2.MainStageContainer;

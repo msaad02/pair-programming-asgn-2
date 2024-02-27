@@ -2,49 +2,22 @@
 package model;
 
 // system imports
-import model.model2.*;
+import model.model2.AccountHolder;
 
 // project imports
 
 /** The class containing the TransactionFactory for the ATM application */
 //==============================================================
-public class TransactionFactory
-{
+public class TransactionFactory {
+    public static Transaction createTransaction(String transType, AccountHolder customer) throws Exception {
 
-    /**
-     *
-     */
-    //----------------------------------------------------------
-    public static Transaction createTransaction(String transType,
-                                                AccountHolder cust)
-            throws Exception
-    {
-        Transaction retValue = null;
-
-        if (transType.equals("Deposit"))
-        {
-            retValue = new DepositTransaction(cust);
-        }
-        else
-        if (transType.equals("Withdraw"))
-        {
-            retValue = new WithdrawTransaction(cust);
-        }
-        else
-        if (transType.equals("Transfer"))
-        {
-            retValue = new TransferTransaction(cust);
-        }
-        else
-        if (transType.equals("BalanceInquiry"))
-        {
-            retValue = new BalanceInquiryTransaction(cust);
-        }
-        else
-        if (transType.equals("ImposeServiceCharge"))
-        {
-            retValue = new ImposeServiceChargeTransaction(cust);
-        }
+        Transaction retValue = switch (transType) {
+            case "insertBook" -> new InsertBookTransaction(customer);
+            case "insertPatron" -> new InsertPatronTransaction(customer);
+            case "searchBooks" -> new SearchBooksTransaction(customer);
+            case "searchPatrons" -> new SearchPatronsTransaction(customer);
+            default -> null;
+        };
 
         return retValue;
     }
