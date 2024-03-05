@@ -296,7 +296,7 @@ public class InsertBookTransactionView extends View
         props.setProperty("bookTitle", bookTitle);
         props.setProperty("author", bookAuthor);
         props.setProperty("pubYear", bookPubYear);
-        props.setProperty("status", bookStatus); // MAY HAVE TO CHANGE IF STATUS IS NAMED DIFFERENT IN DB.
+        props.setProperty("staus", bookStatus); // MAY HAVE TO CHANGE IF STATUS IS NAMED DIFFERENT IN DB.
 
         myModel.stateChangeRequest("DoInsertBookTransaction", props);
     }

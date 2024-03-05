@@ -4,14 +4,20 @@ package model;
 // system imports
 import javafx.scene.Scene;
 import java.util.Properties;
+import java.util.Vector;
 
 // project imports
+import userinterface.BookCollectionView;
 import userinterface.View;
 import userinterface.ViewFactory;
 
 /** The class containing the DepositTransaction for the ATM application */
 //==============================================================
 public class SearchBooksTransaction extends Transaction {
+
+    // Class vars
+    private BookCollection bookList;
+    private Book selectedBook;
 
     // GUI Components
     private String transactionErrorMessage = "";
@@ -49,9 +55,9 @@ public class SearchBooksTransaction extends Transaction {
 
         System.out.println("\n\nThe title is : " + titleQuery);
 
-        //BookCollection bookCollection = new BookCollection();
-
-        //Vector<Book> bookList = bookCollection.findBooksWithTitleLike(titleQuery);
+        this.bookList = new BookCollection();
+        Vector<Book> bookList = this.bookList.findBooksWithTitleLike(titleQuery);
+        System.out.println("The matched books are : " + bookList);
     }
 
     //-----------------------------------------------------------
@@ -61,6 +67,10 @@ public class SearchBooksTransaction extends Transaction {
             return transactionErrorMessage;
         } else if (key.equals("UpdateStatusMessage")) {
             return accountUpdateStatusMessage;
+        } else if (key.equals("BookCollection")) {
+            return bookList.getState("BookCollection");
+        } else if (key.equals("Books")) {
+            return bookList.getState("Books");
         }
 //        } else if (key.equals("AccountNumberList")) {
 //            return myAccountIDs;
@@ -84,9 +94,11 @@ public class SearchBooksTransaction extends Transaction {
             System.out.println("DoSearchBookTransaction enter if statement in `stateChangeRequest` in SearchBookTransaction.java");
 
             processTransaction((Properties) value);
+            createAndShowSearchBookCollectionView();
         }
-
-
+        else if (key.equals("CancelBookSearchTransaction")) {
+            createAndShowSearchBookTransactionView();
+        }
 
         myRegistry.updateSubscribers(key, this);
     }
@@ -118,5 +130,16 @@ public class SearchBooksTransaction extends Transaction {
         // make the view visible by installing it into the stage
         swapToView(newScene);
     }
+
+
+    //------------------------------------------------------
+    protected void createAndShowSearchBookCollectionView() {
+        View newView = ViewFactory.createView("BookCollectionView", this);
+        Scene newScene = new Scene(newView);
+
+        // make the view visible by installing it into the stage
+        swapToView(newScene);
+    }
+
 }
 

@@ -123,6 +123,24 @@ public class Book extends EntityBase {
 		throw new UnsupportedOperationException("Unimplemented method 'stateChangeRequest'");
 	}
 
+	/**
+	 * This method is needed solely to enable the Account information to be displayable in a table
+	 *
+	 */
+	//--------------------------------------------------------------------------
+	public Vector<String> getEntryListView()
+	{
+		Vector<String> v = new Vector<String>();
+
+		v.addElement(persistentState.getProperty("bookTitle"));
+		v.addElement(persistentState.getProperty("author"));
+		v.addElement(persistentState.getProperty("pubYear"));
+		 v.addElement(persistentState.getProperty("staus"));
+
+		return v;
+	}
+
+
 	@Override
 	public String toString() {
 		// Get Title/Author/PubYear

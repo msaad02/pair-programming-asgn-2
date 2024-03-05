@@ -149,15 +149,10 @@ public class SearchPatronTransactionView extends View
     public void processAction(Event evt) {
         // DEBUG: System.out.println("TellerView.actionPerformed()");
 
-        String patronZipQueryEntered = patronZipQueryTextbox.getText();
+        // Perform any validation here, but the assignment doesn't ask for it right now.
+        String patronTitleQueryEntered = patronZipQueryTextbox.getText();
 
-        // Validating user input
-        if (!patronZipQueryEntered.matches("\\d{5}")) {
-            displayErrorMessage("Zip must contain exactly 5 digits.");
-            patronZipQueryTextbox.requestFocus();
-        } else {
-            processPatronSearch(patronZipQueryEntered);
-        }
+        processPatronSearch(patronTitleQueryEntered);
     }
 
     // Create the status log field
@@ -174,11 +169,11 @@ public class SearchPatronTransactionView extends View
      * Action is to pass this info on to the transaction object.
      */
     //----------------------------------------------------------
-    private void processPatronSearch(String bookTitleQuery) {
+    private void processPatronSearch(String patronZipQuery) {
         // Pass it off to the transaction object
         Properties props = new Properties();
 
-        props.setProperty("zip", bookTitleQuery);
+        props.setProperty("zip", patronZipQuery);
 
         myModel.stateChangeRequest("DoSearchPatronTransaction", props);
     }

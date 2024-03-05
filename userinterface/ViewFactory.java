@@ -12,6 +12,8 @@ public class ViewFactory {
             case "InsertPatronTransactionView" -> new InsertPatronTransactionView(model);
             case "SearchBookTransactionView" -> new SearchBookTransactionView(model);
             case "SearchPatronTransactionView" -> new SearchPatronTransactionView(model);
+            case "BookCollectionView" -> new BookCollectionView(model);
+            case "PatronCollectionView" -> new PatronCollectionView(model);
             default -> null;
         };
     }

@@ -105,7 +105,7 @@ public class PatronCollection extends EntityBase {
         if (key.equals("Patrons"))
             return patronList;
         else
-        if (key.equals("PatronList"))
+        if (key.equals("PatronCollection"))
             return this;
         return null;
     }

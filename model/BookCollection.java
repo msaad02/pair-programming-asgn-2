@@ -18,7 +18,6 @@ public class BookCollection extends EntityBase {
         bookList = new Vector<Book>();
     }
 
-
     public void updateBookListFromSQL(String query) throws Exception {
         // Reset bookList
         this.bookList = new Vector<Book>();
@@ -31,7 +30,6 @@ public class BookCollection extends EntityBase {
             this.bookList.add(new Book(allDataRetrieved.elementAt(i)));
         }
     }
-
 
     public Vector<Book> findBooksOlderThanDate(String year) {
 
@@ -61,7 +59,7 @@ public class BookCollection extends EntityBase {
     }
 
     public Vector<Book> findBooksWithTitleLike(String phrase) {
-        String query = "SELECT * FROM " + myTableName + " WHERE bookTitle LIKE '%" + phrase + "%'";
+        String query = "SELECT * FROM " + myTableName + " WHERE bookTitle LIKE '%" + phrase + "%' ORDER BY author";
 
         try {
             updateBookListFromSQL(query);
@@ -84,28 +82,12 @@ public class BookCollection extends EntityBase {
         return this.bookList;
     }
 
-//    // TEMPLATE FOR FUNCTIONS
-//    public Vector<Book> findWhatever(String parameter) {
-//
-//        String query = "<SQL STATEMENT>";
-//
-//        try {
-//            updateBookListFromSQL(query);
-//        } catch (Exception e) {
-//            throw new Error("<ERROR MESSAGE>");
-//        }
-//
-//        return this.bookList;
-//    }
-
-    // ------ END MATT CHANGES ------
-
     @Override
     public Object getState(String key) {
         if (key.equals("Books"))
             return bookList;
         else
-        if (key.equals("BookList"))
+        if (key.equals("BookCollection"))
             return this;
         return null;
     }

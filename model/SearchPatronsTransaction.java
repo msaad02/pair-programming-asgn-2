@@ -7,12 +7,17 @@ import java.util.Properties;
 import java.util.Vector;
 
 // project imports
+import userinterface.PatronCollectionView;
 import userinterface.View;
 import userinterface.ViewFactory;
 
 /** The class containing the DepositTransaction for the ATM application */
 //==============================================================
 public class SearchPatronsTransaction extends Transaction {
+
+    // Class vars
+    private PatronCollection patronList;
+    private Patron selectedPatron;
 
     // GUI Components
     private String transactionErrorMessage = "";
@@ -24,7 +29,7 @@ public class SearchPatronsTransaction extends Transaction {
     //----------------------------------------------------------
     public SearchPatronsTransaction() throws Exception {
         super();
-        System.out.println("Constructor for create and insert book view");
+        System.out.println("Constructor for create and insert patron view");
         createAndShowSearchPatronTransactionView();
     }
 
@@ -40,19 +45,16 @@ public class SearchPatronsTransaction extends Transaction {
     }
 
     /**
-     * This method encapsulates all the logic of inserting the book.
+     * This method encapsulates all the logic of inserting the patron.
      */
     //----------------------------------------------------------
     public void processTransaction(Properties props)
     {
-        System.out.println("enter `processTransaction` in SearchPatronTransaction.java");
         String zipQuery = props.getProperty("zip");
 
-        System.out.println("\n\nThe zip is : " + zipQuery);
-
-//        PatronCollection patronCollection = new PatronCollection();
-//        Vector<Patron> patronList = patronCollection.findPatronsAtZipCode(zipQuery);
-//        System.out.println("the patron list is : " + patronList);
+        this.patronList = new PatronCollection();
+        Vector<Patron> patronList = this.patronList.findPatronsAtZipCode(zipQuery);
+        System.out.println("The matched patrons are : " + patronList);
     }
 
     //-----------------------------------------------------------
@@ -62,6 +64,10 @@ public class SearchPatronsTransaction extends Transaction {
             return transactionErrorMessage;
         } else if (key.equals("UpdateStatusMessage")) {
             return accountUpdateStatusMessage;
+        } else if (key.equals("PatronCollection")) {
+            return patronList.getState("PatronCollection");
+        } else if (key.equals("Patrons")) {
+            return patronList.getState("Patrons");
         }
 //        } else if (key.equals("AccountNumberList")) {
 //            return myAccountIDs;
@@ -85,9 +91,11 @@ public class SearchPatronsTransaction extends Transaction {
             System.out.println("DoSearchPatronTransaction enter if statement in `stateChangeRequest` in SearchPatronTransaction.java");
 
             processTransaction((Properties) value);
+            createAndShowSearchPatronCollectionView();
         }
-
-
+        else if (key.equals("CancelPatronSearchTransaction")) {
+            createAndShowSearchPatronTransactionView();
+        }
 
         myRegistry.updateSubscribers(key, this);
     }
@@ -119,5 +127,16 @@ public class SearchPatronsTransaction extends Transaction {
         // make the view visible by installing it into the stage
         swapToView(newScene);
     }
+
+
+    //------------------------------------------------------
+    protected void createAndShowSearchPatronCollectionView() {
+        View newView = ViewFactory.createView("PatronCollectionView", this);
+        Scene newScene = new Scene(newView);
+
+        // make the view visible by installing it into the stage
+        swapToView(newScene);
+    }
+
 }
 

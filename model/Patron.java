@@ -121,6 +121,26 @@ public class Patron extends EntityBase {
         throw new UnsupportedOperationException("Unimplemented method 'stateChangeRequest'");
     }
 
+    /**
+     * This method is needed solely to enable the Account information to be displayable in a table
+     *
+     */
+    //--------------------------------------------------------------------------
+    public Vector<String> getEntryListView()
+    {
+        Vector<String> v = new Vector<String>();
+
+        v.addElement(persistentState.getProperty("name"));
+        v.addElement(persistentState.getProperty("address"));
+        v.addElement(persistentState.getProperty("city"));
+        v.addElement(persistentState.getProperty("stateCode"));
+        v.addElement(persistentState.getProperty("zip"));
+        v.addElement(persistentState.getProperty("email"));
+        v.addElement(persistentState.getProperty("dateOfBirth"));
+
+        return v;
+    }
+
     @Override
     public String toString() {
 
