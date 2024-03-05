@@ -20,6 +20,9 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Properties;
 
 // project imports
@@ -234,10 +237,10 @@ public class InsertPatronTransactionView extends View
                         patronDateOfBirth
                     );
 
-                    displayMessage("The patrons have been added!");
+                    displayMessage("The patron has been added!");
 
                     // Clear all the fields after they've been inserted.
-                    clearAllFields();
+                    // clearAllFields();
                 }
             }
         });
@@ -288,34 +291,75 @@ public class InsertPatronTransactionView extends View
         String patronEmailEntered = patronEmailTextbox.getText();
         String patronDateOfBirthEntered = patronDateOfBirthTextbox.getText();
 
+        // Patron Name Verification
         if ((patronNameEntered == null) || (patronNameEntered.isEmpty())) {
             displayErrorMessage("Please enter a valid patron name!");
             patronNameTextbox.requestFocus();
             failToInsert = true;
-        } else if ((patronAddressEntered == null) || (patronAddressEntered.isEmpty())) {
+        }
+        // Patron Address Verification
+        else if ((patronAddressEntered == null) || (patronAddressEntered.isEmpty())) {
             displayErrorMessage("Please enter a valid patron address!");
             patronAddressTextbox.requestFocus();
             failToInsert = true;
-        } else if ((patronCityEntered == null) || (patronCityEntered.isEmpty())) {
+        }
+        // Patron City Verification
+        else if ((patronCityEntered == null) || (patronCityEntered.isEmpty())) {
             displayErrorMessage("Please enter a valid patron city!");
             patronCityTextbox.requestFocus();
             failToInsert = true;
-        } else if ((patronStateEntered == null) || (patronStateEntered.isEmpty())) {
+        }
+        // Patron State Verification
+        else if ((patronStateEntered == null) || (patronStateEntered.isEmpty())) {
             displayErrorMessage("Please enter a valid patron state!");
             patronStateCodeTextbox.requestFocus();
             failToInsert = true;
-        } else if ((patronZipEntered == null) || (patronZipEntered.isEmpty())) {
+        }
+        // Patron Zip Code Verification
+        else if ((patronZipEntered == null) || (patronZipEntered.isEmpty())) {
             displayErrorMessage("Please enter a valid patron zip code!");
             patronZipTextbox.requestFocus();
             failToInsert = true;
-        } else if ((patronEmailEntered == null) || (patronEmailEntered.isEmpty())) {
+        }
+        // Patron Email Verification
+        else if ((patronEmailEntered == null) || (patronEmailEntered.isEmpty())) {
             displayErrorMessage("Please enter a valid patron email!");
             patronEmailTextbox.requestFocus();
             failToInsert = true;
-        } else if ((patronDateOfBirthEntered == null) || (patronDateOfBirthEntered.isEmpty())) {
-            displayErrorMessage("Please enter a valid patron date of birth!");
-            patronDateOfBirthTextbox.requestFocus();
-            failToInsert = true;
+        }
+        // Patron Birthday Verification
+        else {
+            // Checking Birthday field is not empty
+            if ((patronDateOfBirthEntered == null) || (patronDateOfBirthEntered.isEmpty())) {
+                displayErrorMessage("Please enter a valid patron date of birth!");
+                patronDateOfBirthTextbox.requestFocus();
+                failToInsert = true;
+            }
+            // Checking Birthday field is in valid range (Age >= 18 years old)
+            else {
+                // First need to check Birthday is in the right format
+                try {
+                    LocalDate startDate = LocalDate.parse("1920-01-01");
+                    LocalDate endDate = LocalDate.parse("2006-01-01");
+                    LocalDate userDate = LocalDate.parse(patronDateOfBirthEntered);
+
+                    // Check if date entered is within range
+                    if (userDate.isBefore(startDate)) {
+                        displayErrorMessage("Patron cannot be born before 1920.");
+                        patronDateOfBirthTextbox.requestFocus();
+                        failToInsert = true;
+
+                    } else if (userDate.isAfter(endDate)) {
+                        displayErrorMessage("Patron must be >=18 years old.");
+                        patronDateOfBirthTextbox.requestFocus();
+                        failToInsert = true;
+                    }
+                } catch (DateTimeParseException e) {
+                    displayErrorMessage("Error parsing DoB. Enter like '2000-01-01'");
+                    patronDateOfBirthTextbox.requestFocus();
+                    failToInsert = true;
+                }
+            }
         }
     }
 
