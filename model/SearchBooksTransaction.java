@@ -9,17 +9,13 @@ import java.util.Properties;
 import event.Event;
 import exception.InvalidPrimaryKeyException;
 
-import model.model2.Account;
-import model.model2.AccountHolder;
 import userinterface.View;
-import userinterface.userinterface2.ViewFactory;
+import userinterface.ViewFactory;
 
 /** The class containing the TransferTransaction for the ATM application */
 //==============================================================
 public class SearchBooksTransaction extends Transaction
 {
-    private Account source;
-    private Account dest;
     private String transferAmount;
     // GUI Components
 
@@ -30,10 +26,8 @@ public class SearchBooksTransaction extends Transaction
      * Constructor for this class.
      */
     //----------------------------------------------------------
-    public SearchBooksTransaction(AccountHolder cust)
-            throws Exception
-    {
-        super(cust);
+    public SearchBooksTransaction() throws Exception {
+        super();
     }
 
     //----------------------------------------------------------
@@ -62,70 +56,71 @@ public class SearchBooksTransaction extends Transaction
         // DEBUG System.out.println("here: sa: "+ sourceAccountNumber + "; da: " + destAccountNumber + "; amt: " +  amount);
         transferAmount = amount;
 
-        try
-        {
-            source = createAccount(sourceAccountNumber);
-
-            boolean isOwner = source.verifyOwnership(myCust);
-            if (!isOwner)
-            {
-                transactionErrorMessage = "ERROR: Transfer Transaction: Not owner of selected source account!!";
-                new Event(Event.getLeafLevelClassName(this), "processTransaction",
-                        "Failed to verify ownership of source account number : " + sourceAccountNumber + ".",
-                        Event.ERROR);
-            }
-            else
-            {
-                dest= createAccount(destAccountNumber);
-
-                isOwner = dest.verifyOwnership(myCust);
-                if (!isOwner)
-                {
-                    transactionErrorMessage = "ERROR: Transfer Transaction: Not owner of selected dest account!!";
-                    new Event(Event.getLeafLevelClassName(this), "processTransaction",
-                            "Failed to verify ownership of dest account number : " + destAccountNumber + ".",
-                            Event.ERROR);
-                }
-                else
-                {
-                    boolean ok = source.checkBalance(amount);
-
-                    if (ok)
-                    {
-                        source.debit(amount);
-                        dest.credit(amount);
-
-                        source.update();
-                        accountUpdateStatusMessage = (String)source.getState("UpdateStatusMessage");
-                        transactionErrorMessage = accountUpdateStatusMessage;
-
-                        if ((transactionErrorMessage != null) && (!transactionErrorMessage.startsWith("Error")))
-                        {
-                            dest.update();
-                            accountUpdateStatusMessage = (String)dest.getState("UpdateStatusMessage");
-                            transactionErrorMessage = accountUpdateStatusMessage;
-                        }
-
+//        try
+//        {
+////            source = createAccount(sourceAccountNumber);
+//
+////            boolean isOwner = source.verifyOwnership(myCust);
+//            boolean isOwner = true;
+//            if (!isOwner)
+//            {
+//                transactionErrorMessage = "ERROR: Transfer Transaction: Not owner of selected source account!!";
+//                new Event(Event.getLeafLevelClassName(this), "processTransaction",
+//                        "Failed to verify ownership of source account number : " + sourceAccountNumber + ".",
+//                        Event.ERROR);
+//            }
+//            else
+//            {
+////                dest= createAccount(destAccountNumber);
+//
+////                isOwner = dest.verifyOwnership(myCust);
+//                if (!isOwner)
+//                {
+//                    transactionErrorMessage = "ERROR: Transfer Transaction: Not owner of selected dest account!!";
+//                    new Event(Event.getLeafLevelClassName(this), "processTransaction",
+//                            "Failed to verify ownership of dest account number : " + destAccountNumber + ".",
+//                            Event.ERROR);
+//                }
+//                else
+//                {
+//                    boolean ok = source.checkBalance(amount);
+//
+//                    if (ok)
+//                    {
+//                        source.debit(amount);
+//                        dest.credit(amount);
+//
+//                        source.update();
+//                        accountUpdateStatusMessage = (String)source.getState("UpdateStatusMessage");
+//                        transactionErrorMessage = accountUpdateStatusMessage;
+//
+//                        if ((transactionErrorMessage != null) && (!transactionErrorMessage.startsWith("Error")))
+//                        {
+//                            dest.update();
+//                            accountUpdateStatusMessage = (String)dest.getState("UpdateStatusMessage");
+//                            transactionErrorMessage = accountUpdateStatusMessage;
+//                        }
+//
                         createAndShowReceiptView();
-                    }
-                    else
-                    {
-                        transactionErrorMessage = "Not enough money in account to Transfer $ " + amount;
-                    }
-                }
-
-
-            }
-        }
-        catch (InvalidPrimaryKeyException ex)
-        {
-            transactionErrorMessage = "ACCOUNT FAILURE: Contact bank immediately!!";
-            new Event(Event.getLeafLevelClassName(this), "processTransaction",
-                    "Failed to create account for either number : " + sourceAccountNumber + " or " + destAccountNumber +
-                            ". Reason: " + ex,
-                    Event.ERROR);
-
-        }
+//                    }
+//                    else
+//                    {
+//                        transactionErrorMessage = "Not enough money in account to Transfer $ " + amount;
+//                    }
+//                }
+//
+//
+//            }
+//        }
+//        catch (InvalidPrimaryKeyException ex)
+//        {
+//            transactionErrorMessage = "ACCOUNT FAILURE: Contact bank immediately!!";
+//            new Event(Event.getLeafLevelClassName(this), "processTransaction",
+//                    "Failed to create account for either number : " + sourceAccountNumber + " or " + destAccountNumber +
+//                            ". Reason: " + ex,
+//                    Event.ERROR);
+//
+//        }
     }
 
     //-----------------------------------------------------------
@@ -148,12 +143,12 @@ public class SearchBooksTransaction extends Transaction
         else
         if (key.equals("SourceAccount"))
         {
-            return source;
+//            return source;
         }
         else
         if (key.equals("DestAccount"))
         {
-            return dest;
+//            return dest;
         }
         else
         if (key.equals("TransferAmount"))
@@ -168,7 +163,7 @@ public class SearchBooksTransaction extends Transaction
     {
         if (key.equals("DoYourJob"))
         {
-            doYourJob();
+//            doYourJob();
         }
         else
         if (key.equals("DoTransfer"))

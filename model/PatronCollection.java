@@ -1,7 +1,7 @@
 package model;
 
 // system imports
-import model.model2.EntityBase;
+import model.EntityBase;
 import java.util.Properties;
 import java.util.Vector;
 

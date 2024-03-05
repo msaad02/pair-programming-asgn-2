@@ -9,16 +9,13 @@ import java.util.Properties;
 import event.Event;
 import exception.InvalidPrimaryKeyException;
 
-import model.model2.Account;
-import model.model2.AccountHolder;
 import userinterface.View;
-import userinterface.userinterface2.ViewFactory;
+import userinterface.ViewFactory;
 
 /** The class containing the BalanceInquiryTransaction for the ATM application */
 //==============================================================
 public class SearchPatronsTransaction extends Transaction
 {
-    private Account myAccount; // needed for GUI only
     private String balanceAmount; // needed for GUI only
 
     // GUI Components
@@ -26,10 +23,8 @@ public class SearchPatronsTransaction extends Transaction
 
     // Constructor for this class.
     //----------------------------------------------------------
-    public SearchPatronsTransaction(AccountHolder cust)
-            throws Exception
-    {
-        super(cust);
+    public SearchPatronsTransaction() throws Exception {
+        super();
     }
 
     //----------------------------------------------------------
@@ -50,36 +45,37 @@ public class SearchPatronsTransaction extends Transaction
     //----------------------------------------------------------
     public void processTransaction(Properties props)
     {
-        String accountNumber = props.getProperty("AccountNumber");
-
-        try
-        {
-            myAccount = createAccount(accountNumber);
-
-            boolean isOwner = myAccount.verifyOwnership(myCust);
-            if (!isOwner)
-            {
-                transactionErrorMessage = "ERROR: BalanceInquiry Transaction: Not owner of selected account!!";
-                new Event(Event.getLeafLevelClassName(this), "processTransaction",
-                        "Failed to verify ownership of account number : " + accountNumber + ".",
-                        Event.ERROR);
-            }
-            else
-            {
-                balanceAmount = (String)myAccount.getState("Balance");
-
-                createAndShowReceiptView();
-
-            }
-        }
-        catch (InvalidPrimaryKeyException ex)
-        {
-            transactionErrorMessage = "ACCOUNT FAILURE: Contact bank immediately!!";
-            new Event(Event.getLeafLevelClassName(this), "processTransaction",
-                    "Failed to create account for number : " + accountNumber + ". Reason: " + ex,
-                    Event.ERROR);
-
-        }
+        System.out.println("processTransaction enter in SearchPatronsTransaction.java");
+//        String accountNumber = props.getProperty("AccountNumber");
+//
+//        try
+//        {
+//            myAccount = createAccount(accountNumber);
+//
+//            boolean isOwner = myAccount.verifyOwnership(myCust);
+//            if (!isOwner)
+//            {
+//                transactionErrorMessage = "ERROR: BalanceInquiry Transaction: Not owner of selected account!!";
+//                new Event(Event.getLeafLevelClassName(this), "processTransaction",
+//                        "Failed to verify ownership of account number : " + accountNumber + ".",
+//                        Event.ERROR);
+//            }
+//            else
+//            {
+//                balanceAmount = (String)myAccount.getState("Balance");
+//
+//                createAndShowReceiptView();
+//
+//            }
+//        }
+//        catch (InvalidPrimaryKeyException ex)
+//        {
+//            transactionErrorMessage = "ACCOUNT FAILURE: Contact bank immediately!!";
+//            new Event(Event.getLeafLevelClassName(this), "processTransaction",
+//                    "Failed to create account for number : " + accountNumber + ". Reason: " + ex,
+//                    Event.ERROR);
+//
+//        }
     }
 
     //-----------------------------------------------------------
@@ -97,7 +93,7 @@ public class SearchPatronsTransaction extends Transaction
         else
         if (key.equals("Account"))
         {
-            return myAccount;
+//            return myAccount;
         }
         else
         if (key.equals("BalanceAmount"))
@@ -112,7 +108,7 @@ public class SearchPatronsTransaction extends Transaction
     {
         if (key.equals("DoYourJob"))
         {
-            doYourJob();
+//            doYourJob();
         }
         else
         if (key.equals("DoBalanceInquiry"))

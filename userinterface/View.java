@@ -23,16 +23,13 @@ import impresario.IControl;
 import impresario.ControlRegistry;
 
 //==============================================================
-public abstract class View extends Group
-	implements IView, IControl
+public abstract class View extends Group implements IView, IControl
 {
 	// private data
 	protected IModel myModel;
 	protected ControlRegistry myRegistry;
-	
-	
+
 	// GUI components
-	
 		
 	// Class constructor
 	//----------------------------------------------------------

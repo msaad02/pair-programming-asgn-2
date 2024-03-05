@@ -11,7 +11,10 @@ public class ViewFactory {
         {
             return new LibraryChoiceView(model);
         }
-        else
+        else if (viewName.equals("InsertBookTransactionView"))
+        {
+            return new InsertBookTransactionView(model);
+        }
             return null;
     }
 }

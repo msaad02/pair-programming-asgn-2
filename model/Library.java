@@ -14,12 +14,10 @@ import impresario.IView;
 import impresario.ModelRegistry;
 
 import event.Event;
-import userinterface.userinterface2.MainStageContainer;
+import userinterface.MainStageContainer;
 import userinterface.View;
 import userinterface.ViewFactory;
-import userinterface.userinterface2.WindowPosition;
-
-import model.model2.*;
+import userinterface.WindowPosition;
 
 
 /** The class containing the Teller  for the ATM application */
@@ -33,7 +31,6 @@ public class Library implements IView, IModel
     private Properties dependencies;
     private final ModelRegistry myRegistry;
 
-    private AccountHolder myAccountHolder;
 
     // GUI Components
     private final Hashtable<String, Scene> myViews;
@@ -51,9 +48,9 @@ public class Library implements IView, IModel
 
         // STEP 3.1: Create the Registry object - if you inherit from
         // EntityBase, this is done for you. Otherwise, you do it yourself
-        myRegistry = new ModelRegistry("Teller");
+        myRegistry = new ModelRegistry("Library");
         if(myRegistry == null) {
-            new Event(Event.getLeafLevelClassName(this), "Teller",
+            new Event(Event.getLeafLevelClassName(this), "Library",
                     "Could not instantiate Registry", Event.ERROR);
         }
 
@@ -61,7 +58,6 @@ public class Library implements IView, IModel
         setDependencies();
 
         // Set up the initial view
-        // createAndShowTellerView();
         createAndShowLibraryChoiceView();
     }
 
@@ -99,14 +95,13 @@ public class Library implements IView, IModel
         {
             return transactionErrorMessage;
         }
-        else
-        if (key.equals("Name"))
+        else if (key.equals("Name"))
         {
-            if (myAccountHolder != null)
-            {
-                return myAccountHolder.getState("Name");
-            }
-            else
+//            if (myAccountHolder != null)
+//            {
+//                return myAccountHolder.getState("Name");
+//            }
+//            else
                 return "Undefined";
         }
         else
@@ -120,18 +115,16 @@ public class Library implements IView, IModel
         // just set up dependencies for
         // DEBUG System.out.println("Teller.sCR: key = " + key);
 
-        if ((key.equals("Deposit")) || (key.equals("Withdraw")) ||
-                (key.equals("Transfer")) || (key.equals("BalanceInquiry")) ||
-                (key.equals("ImposeServiceCharge")))
+        System.out.println("The key is: " + key);
+        if ((key.equals("insertBook")) || (key.equals("insertPatron")) ||
+                (key.equals("searchBooks")) || (key.equals("searchPatrons")))
         {
-            if (myAccountHolder != null) {
-                doTransaction(key);
-            }
-            else {
-                transactionErrorMessage = "Transaction impossible: Customer not identified";
-            }
+            doTransaction(key);
         }
-
+        else if (key.equals("CancelTransaction"))
+        {
+            createAndShowLibraryChoiceView();
+        }
 
         myRegistry.updateSubscribers(key, this);
     }
@@ -140,36 +133,11 @@ public class Library implements IView, IModel
     //----------------------------------------------------------
     public void updateState(String key, Object value)
     {
-        // DEBUG System.out.println("Teller.updateState: key: " + key);
+        // DEBUG
+        System.out.println("Teller.updateState: key: " + key);
 
         stateChangeRequest(key, value);
     }
-
-    /**
-     * Login AccountHolder corresponding to user name and password.
-     */
-    //----------------------------------------------------------
-//    public boolean loginAccountHolder(Properties props)
-//    {
-//        try
-//        {
-//            myAccountHolder = new AccountHolder(props);
-//            // DEBUG System.out.println("Account Holder: " + myAccountHolder.getState("Name") + " successfully logged in");
-//            return true;
-//        }
-//        catch (InvalidPrimaryKeyException ex)
-//        {
-//            loginErrorMessage = "ERROR: " + ex.getMessage();
-//            return false;
-//        }
-//        catch (PasswordMismatchException exec)
-//        {
-//
-//            loginErrorMessage = "ERROR: " + exec.getMessage();
-//            return false;
-//        }
-//    }
-
 
     /**
      * Create a Transaction depending on the Transaction type (deposit,
@@ -177,18 +145,15 @@ public class Library implements IView, IModel
      * create.
      */
     //----------------------------------------------------------
-    public void doTransaction(String transactionType)
-    {
-        try
-        {
-            Transaction trans = TransactionFactory.createTransaction(
-                    transactionType, myAccountHolder);
+    public void doTransaction(String transactionType) {
+        System.out.println("The transaction type is: " + transactionType);
+        try {
+            Transaction trans = TransactionFactory.createTransaction(transactionType);
 
             trans.subscribe("CancelTransaction", this);
-            trans.stateChangeRequest("DoYourJob", "");
+            // trans.stateChangeRequest("DoYourJob", "");
         }
-        catch (Exception ex)
-        {
+        catch (Exception ex) {
             transactionErrorMessage = "FATAL ERROR: TRANSACTION FAILURE: Unrecognized transaction!!";
             new Event(Event.getLeafLevelClassName(this), "createTransaction",
                     "Transaction Creation Failure: Unrecognized transaction " + ex,
@@ -215,23 +180,6 @@ public class Library implements IView, IModel
 
     }
 
-    //------------------------------------------------------------
-//    private void createAndShowTellerView()
-//    {
-//        Scene currentScene = myViews.get("TellerView");
-//
-//        if (currentScene == null)
-//        {
-//            // create our initial view
-//            View newView = ViewFactory.createView("TellerView", this); // USE VIEW FACTORY
-//            currentScene = new Scene(newView);
-//            myViews.put("TellerView", currentScene);
-//        }
-//
-//        swapToView(currentScene);
-//
-//    }
-
 
     /** Register objects to receive state updates. */
     //----------------------------------------------------------
@@ -254,12 +202,9 @@ public class Library implements IView, IModel
 
 
     //-----------------------------------------------------------------------------
-    public void swapToView(Scene newScene)
-    {
+    public void swapToView(Scene newScene) {
 
-
-        if (newScene == null)
-        {
+        if (newScene == null) {
             System.out.println("Teller.swapToView(): Missing view for display");
             new Event(Event.getLeafLevelClassName(this), "swapToView",
                     "Missing view for display ", Event.ERROR);
@@ -269,11 +214,8 @@ public class Library implements IView, IModel
         myStage.setScene(newScene);
         myStage.sizeToScene();
 
-
         //Place in center
         WindowPosition.placeCenter(myStage);
-
     }
-
 }
 

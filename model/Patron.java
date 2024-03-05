@@ -6,7 +6,7 @@ import java.util.Properties;
 import java.util.Vector;
 
 import exception.InvalidPrimaryKeyException;
-import model.model2.EntityBase;
+import model.EntityBase;
 
 public class Patron extends EntityBase {
     // Class vars

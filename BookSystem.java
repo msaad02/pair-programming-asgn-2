@@ -4,8 +4,8 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import model.Library;
-import userinterface.userinterface2.MainStageContainer;
-import userinterface.userinterface2.WindowPosition;
+import userinterface.MainStageContainer;
+import userinterface.WindowPosition;
 
 /**
  * The class containing the main program  for the ATM application

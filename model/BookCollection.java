@@ -1,6 +1,6 @@
 package model;
 
-import model.model2.EntityBase;
+import model.EntityBase;
 
 // system imports
 import java.util.Properties;

@@ -9,16 +9,13 @@ import java.util.Properties;
 import event.Event;
 import exception.InvalidPrimaryKeyException;
 
-import model.model2.Account;
-import model.model2.AccountHolder;
 import userinterface.View;
-import userinterface.userinterface2.ViewFactory;
+import userinterface.ViewFactory;
 
 /** The class containing the WithdrawTransaction for the ATM application */
 //==============================================================
 public class InsertPatronTransaction extends Transaction
 {
-    private Account myAccount; // needed for GUI only
     private String withdrawAmount; // needed for GUI only
 
     // GUI Components
@@ -32,10 +29,9 @@ public class InsertPatronTransaction extends Transaction
      *
      */
     //----------------------------------------------------------
-    public InsertPatronTransaction(AccountHolder cust)
-            throws Exception
+    public InsertPatronTransaction() throws Exception
     {
-        super(cust);
+        super();
     }
 
     //----------------------------------------------------------
@@ -60,45 +56,45 @@ public class InsertPatronTransaction extends Transaction
         String amount = props.getProperty("Amount");
         withdrawAmount = amount;
 
-        try
-        {
-            myAccount = createAccount(accountNumber);
-
-            boolean isOwner = myAccount.verifyOwnership(myCust);
-            if (!isOwner)
-            {
-                transactionErrorMessage = "ERROR: Withdraw Transaction: Not owner of selected account!!";
-                new Event(Event.getLeafLevelClassName(this), "processTransaction",
-                        "Failed to verify ownership of account number : " + accountNumber + ".",
-                        Event.ERROR);
-            }
-            else
-            {
-                boolean ok = myAccount.checkBalance(amount); // Not done via invocation of 'sCR(...)' method on Account as there is no possibility of callback
-                if (ok)
-                {
-                    myAccount.debit(amount);
-                    myAccount.update();
-                    accountUpdateStatusMessage = (String)myAccount.getState("UpdateStatusMessage");
-                    transactionErrorMessage = accountUpdateStatusMessage;
-
-                    createAndShowReceiptView();
-                }
-                else
-                {
-                    transactionErrorMessage = "Not enough money in account to withdraw $ " + amount;
-                }
-
-            }
-        }
-        catch (InvalidPrimaryKeyException ex)
-        {
-            transactionErrorMessage = "ACCOUNT FAILURE: Contact bank immediately!!";
-            new Event(Event.getLeafLevelClassName(this), "processTransaction",
-                    "Failed to create account for number : " + accountNumber + ". Reason: " + ex,
-                    Event.ERROR);
-
-        }
+//        try
+//        {
+//            myAccount = createAccount(accountNumber);
+//
+//            boolean isOwner = myAccount.verifyOwnership(myCust);
+//            if (!isOwner)
+//            {
+//                transactionErrorMessage = "ERROR: Withdraw Transaction: Not owner of selected account!!";
+//                new Event(Event.getLeafLevelClassName(this), "processTransaction",
+//                        "Failed to verify ownership of account number : " + accountNumber + ".",
+//                        Event.ERROR);
+//            }
+//            else
+//            {
+//                boolean ok = myAccount.checkBalance(amount); // Not done via invocation of 'sCR(...)' method on Account as there is no possibility of callback
+//                if (ok)
+//                {
+//                    myAccount.debit(amount);
+//                    myAccount.update();
+//                    accountUpdateStatusMessage = (String)myAccount.getState("UpdateStatusMessage");
+//                    transactionErrorMessage = accountUpdateStatusMessage;
+//
+//                    createAndShowReceiptView();
+//                }
+//                else
+//                {
+//                    transactionErrorMessage = "Not enough money in account to withdraw $ " + amount;
+//                }
+//
+//            }
+//        }
+//        catch (InvalidPrimaryKeyException ex)
+//        {
+//            transactionErrorMessage = "ACCOUNT FAILURE: Contact bank immediately!!";
+//            new Event(Event.getLeafLevelClassName(this), "processTransaction",
+//                    "Failed to create account for number : " + accountNumber + ". Reason: " + ex,
+//                    Event.ERROR);
+//
+//        }
     }
 
     //-----------------------------------------------------------
@@ -121,7 +117,7 @@ public class InsertPatronTransaction extends Transaction
         else
         if (key.equals("Account"))
         {
-            return myAccount;
+            //return myAccount;
         }
         else
         if (key.equals("WithdrawAmount"))
@@ -136,7 +132,7 @@ public class InsertPatronTransaction extends Transaction
     {
         if (key.equals("DoYourJob"))
         {
-            doYourJob();
+            //doYourJob();
         }
         else
         if (key.equals("DoWithdraw"))

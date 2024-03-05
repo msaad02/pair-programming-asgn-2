@@ -12,19 +12,15 @@ import javafx.scene.Scene;
 import exception.InvalidPrimaryKeyException;
 import event.Event;
 
-// temporary imports
-import model.model2.*;
-
 import impresario.*;
 
-import userinterface.userinterface2.MainStageContainer;
-import userinterface.userinterface2.WindowPosition;
+import userinterface.MainStageContainer;
+import userinterface.WindowPosition;
 
 /** The class containing the Transaction for the ATM application */
 //==============================================================
 abstract public class Transaction implements IView, IModel
 {
-
     // For Impresario
     protected Properties dependencies;
     protected ModelRegistry myRegistry;
@@ -32,7 +28,7 @@ abstract public class Transaction implements IView, IModel
     protected Stage myStage;
     protected Hashtable<String, Scene> myViews;
 
-    protected AccountHolder myCust;
+    // protected AccountHolder myCust;
 
     protected Vector myAccountIDs;
     // GUI Components
@@ -45,21 +41,19 @@ abstract public class Transaction implements IView, IModel
      *
      */
     //----------------------------------------------------------
-    protected Transaction(AccountHolder cust) throws Exception
+    //protected Transaction(AccountHolder cust) throws Exception
+    protected Transaction() throws Exception
     {
-
         myStage = MainStageContainer.getInstance();
         myViews = new Hashtable<String, Scene>();
-        myCust = cust;
 
         myRegistry = new ModelRegistry("Transaction");
-        if(myRegistry == null)
-        {
+
+        if (myRegistry == null) {
             new Event(Event.getLeafLevelClassName(this), "Transaction",
                     "Could not instantiate Registry", Event.ERROR);
         }
         setDependencies();
-
     }
 
     //----------------------------------------------------------
@@ -73,27 +67,27 @@ abstract public class Transaction implements IView, IModel
      *
      */
     //---------------------------------------------------------
-    protected void doYourJob()
-    {
-        AccountCatalog catalog = null;
-
-        try
-        {
-
-            catalog = new AccountCatalog(myCust);
-            myAccountIDs = (Vector)catalog.getState("AccountNumberList");
-
-            Scene newScene = createView();
-
-            swapToView(newScene);
-
-        }
-        catch (Exception ex)
-        {
-            new Event(Event.getLeafLevelClassName(this), "Transaction",
-                    "Could not find any accounts for " + myCust.getState("ID"), Event.ERROR);
-        }
-    }
+//    protected void doYourJob()
+//    {
+//        AccountCatalog catalog = null;
+//
+//        try
+//        {
+//
+//            catalog = new AccountCatalog(myCust);
+//            myAccountIDs = (Vector) catalog.getState("AccountNumberList");
+//
+//            Scene newScene = createView();
+//
+//            swapToView(newScene);
+//
+//        }
+//        catch (Exception ex)
+//        {
+//            new Event(Event.getLeafLevelClassName(this), "Transaction",
+//                    "Could not find any accounts for " + myCust.getState("ID"), Event.ERROR);
+//        }
+//    }
 
     // forward declarations
     //-----------------------------------------------------------
@@ -133,11 +127,11 @@ abstract public class Transaction implements IView, IModel
      * Create an account (based on account number passed to you from the view)
      */
     //----------------------------------------------------------
-    protected Account createAccount(String accountNumber) throws
-            InvalidPrimaryKeyException
-    {
-        return new Account(accountNumber);
-    }
+//    protected Account createAccount(String accountNumber) throws
+//            InvalidPrimaryKeyException
+//    {
+//        return new Account(accountNumber);
+//    }
 
     //----------------------------------------------------------
     public Vector getAccountList()

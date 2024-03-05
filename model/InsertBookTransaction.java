@@ -6,44 +6,34 @@ import javafx.scene.Scene;
 import java.util.Properties;
 
 // project imports
-import event.Event;
-import exception.InvalidPrimaryKeyException;
-
-import model.model2.Account;
-import model.model2.AccountHolder;
 import userinterface.View;
-import userinterface.userinterface2.ViewFactory;
+import userinterface.ViewFactory;
 
 /** The class containing the DepositTransaction for the ATM application */
 //==============================================================
-public class InsertBookTransaction extends Transaction
-{
+public class InsertBookTransaction extends Transaction {
 
-    private Account myAccount;
     private String depositAmount; // needed for GUI only
 
     // GUI Components
-
     private String transactionErrorMessage = "";
     private String accountUpdateStatusMessage = "";
 
     /**
      * Constructor for this class.
-     *
-     *
      */
     //----------------------------------------------------------
-    public InsertBookTransaction(AccountHolder cust)
-            throws Exception
-    {
-        super(cust);
+    public InsertBookTransaction() throws Exception {
+        super();
+        System.out.println("Constructor for create and insert book view");
+        createAndShowInsertBookTransactionView();
     }
 
     //----------------------------------------------------------
     protected void setDependencies()
     {
         dependencies = new Properties();
-        dependencies.setProperty("CancelDeposit", "CancelTransaction");
+        dependencies.setProperty("CancelInsertBookTransaction", "CancelTransaction");
         dependencies.setProperty("OK", "CancelTransaction");
         dependencies.setProperty("AccountNumber", "TransactionError");
 
@@ -51,82 +41,34 @@ public class InsertBookTransaction extends Transaction
     }
 
     /**
-     * This method encapsulates all the logic of creating the account,
-     * verifying ownership, crediting, etc. etc.
+     * This method encapsulates all the logic of inserting the book.
      */
     //----------------------------------------------------------
     public void processTransaction(Properties props)
     {
-        if (props.getProperty("AccountNumber") != null)
-        {
-            String accountNumber = props.getProperty("AccountNumber");
-            try
-            {
+        System.out.println("enter `processTransaction` in InsertBookTransaction.java");
+        System.out.println("The props are: ");
+        System.out.println(props);
 
-                myAccount = createAccount(accountNumber);
-                boolean isOwner = myAccount.verifyOwnership(myCust);
-                if (!isOwner)
-                {
-                    transactionErrorMessage = "ERROR: Deposit Transaction: Not owner of selected account!!";
-                    new Event(Event.getLeafLevelClassName(this), "processTransaction",
-                            "Failed to verify ownership of account number : " + accountNumber + ".",
-                            Event.ERROR);
-                }
-                else
-                {
-                    createAndShowDepositAmountView();
-                }
-            }
-            catch (InvalidPrimaryKeyException ex)
-            {
-                transactionErrorMessage = "ACCOUNT FAILURE: Contact bank immediately!!";
-                new Event(Event.getLeafLevelClassName(this), "processTransaction",
-                        "Failed to create account for number : " + accountNumber + ". Reason: " + ex,
-                        Event.ERROR);
 
-            }
-        }
-        else
-        if (props.getProperty("Amount") != null)
-        {
-            String amount = props.getProperty("Amount");
-            depositAmount = amount;
+        Book newBook = new Book(props);
+        newBook.update();
 
-            myAccount.credit(amount);
-            myAccount.update();
-            accountUpdateStatusMessage = (String)myAccount.getState("UpdateStatusMessage");
-            transactionErrorMessage = accountUpdateStatusMessage;
-
-            createAndShowReceiptView();
-
-        }
+        System.out.println("The new book has been added!");
     }
 
     //-----------------------------------------------------------
     public Object getState(String key)
     {
-        if (key.equals("TransactionError"))
-        {
+        if (key.equals("TransactionError")) {
             return transactionErrorMessage;
-        }
-        else
-        if (key.equals("UpdateStatusMessage"))
-        {
+        } else if (key.equals("UpdateStatusMessage")) {
             return accountUpdateStatusMessage;
-        }
-        else
-        if (key.equals("AccountNumberList"))
-        {
+        } else if (key.equals("AccountNumberList")) {
             return myAccountIDs;
-        }
-        else
-        if (key.equals("Account"))
-        {
-            return myAccount;
-        }
-        else
-        if (key.equals("DepositAmount"))
-        {
+        } else if (key.equals("Account")) {
+//            return myAccount;
+        } else if (key.equals("DepositAmount")) {
             return depositAmount;
         }
         return null;
@@ -136,16 +78,17 @@ public class InsertBookTransaction extends Transaction
     public void stateChangeRequest(String key, Object value)
     {
         // DEBUG System.out.println("DepositTransaction.sCR: key: " + key);
+        if (key.equals("DoYourJob")) {
+            System.out.println("DoYourJob enter if statement in `stateChangeRequest` InsertBookTransaction.java");
+//            doYourJob();
+        }
+        else if (key.equals("DoInsertBookTransaction")) {
+            System.out.println("DoInsertBookTransaction enter if statement in `stateChangeRequest` in InsertBookTransaction.java");
 
-        if (key.equals("DoYourJob"))
-        {
-            doYourJob();
+            processTransaction((Properties) value);
         }
-        else
-        if ((key.equals("AccountNumber")) || (key.equals("Amount")))
-        {
-            processTransaction((Properties)value);
-        }
+
+
 
         myRegistry.updateSubscribers(key, this);
     }
@@ -159,53 +102,23 @@ public class InsertBookTransaction extends Transaction
     {
         Scene currentScene = myViews.get("DepositTransactionView");
 
-        if (currentScene == null)
-        {
+        if (currentScene == null) {
             // create our initial view
             View newView = ViewFactory.createView("DepositTransactionView", this);
             currentScene = new Scene(newView);
             myViews.put("DepositTransactionView", currentScene);
-
-            return currentScene;
         }
-        else
-        {
-            return currentScene;
-        }
+        return currentScene;
     }
 
-    //------------------------------------------------------
-    protected void createAndShowDepositAmountView()
-    {
-        Scene localScene = myViews.get("DepositAmountView");
-
-        if (localScene == null)
-        {
-            // create our initial view
-            View newView = ViewFactory.createView("DepositAmountView", this);
-            localScene = new Scene(newView);
-
-            myViews.put("DepositAmountView", localScene);
-
-
-        }
-        // make the view visible by installing it into the frame
-        swapToView(localScene);
-    }
 
     //------------------------------------------------------
-    protected void createAndShowReceiptView()
-    {
-
-        // create our initial view
-        View newView = ViewFactory.createView("DepositReceipt", this);
+    protected void createAndShowInsertBookTransactionView() {
+        View newView = ViewFactory.createView("InsertBookTransactionView", this);
         Scene newScene = new Scene(newView);
 
-        myViews.put("DepositReceipt", newScene);
-
-        // make the view visible by installing it into the frame
+        // make the view visible by installing it into the stage
         swapToView(newScene);
     }
-
 }
 

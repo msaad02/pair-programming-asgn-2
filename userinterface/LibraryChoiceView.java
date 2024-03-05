@@ -19,8 +19,6 @@ import javafx.scene.text.TextAlignment;
 // project imports
 import impresario.IModel;
 
-import userinterface.userinterface2.*;
-
 /** The class containing the Transaction Choice View  for the ATM application */
 //==============================================================
 public class LibraryChoiceView extends View
