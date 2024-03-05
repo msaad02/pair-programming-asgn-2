@@ -162,7 +162,7 @@ public class LibraryChoiceView extends View
 
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("Logout", null);
+                System.exit(0);
             }
         });
         doneCont.getChildren().add(doneButton);
