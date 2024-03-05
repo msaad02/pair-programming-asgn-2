@@ -91,3 +91,6 @@
 [2/27/24, 12:43 PM]|AccountCatalog|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1146: (conn=2114) Table 'spr24_csc429_msaad1.Account' doesn't exist>
 [2/27/24, 12:43 PM]|BalanceInquiryTransaction|Transaction|Error|NOTAG|null<Could not find any accounts for 1>
 [2/27/24, 1:12 PM]|BookSystem|ATM.<init>|Error|NOTAG|null<Unable to create Library object>
+[3/5/24, 10:44 AM]|Library|createTransaction|Error|NOTAG|null<Transaction Creation Failure: Unrecognized transaction java.lang.NullPointerException: Root cannot be null>
+[3/5/24, 10:44 AM]|Library|createTransaction|Error|NOTAG|null<Transaction Creation Failure: Unrecognized transaction java.lang.NullPointerException: Root cannot be null>
+[3/5/24, 10:44 AM]|Library|createTransaction|Error|NOTAG|null<Transaction Creation Failure: Unrecognized transaction java.lang.NullPointerException: Root cannot be null>

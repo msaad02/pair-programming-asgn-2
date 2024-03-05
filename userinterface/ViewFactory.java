@@ -10,6 +10,8 @@ public class ViewFactory {
             case "LibraryChoiceView" -> new LibraryChoiceView(model);
             case "InsertBookTransactionView" -> new InsertBookTransactionView(model);
             case "InsertPatronTransactionView" -> new InsertPatronTransactionView(model);
+            case "SearchBookTransactionView" -> new SearchBookTransactionView(model);
+            case "SearchPatronTransactionView" -> new SearchPatronTransactionView(model);
             default -> null;
         };
     }

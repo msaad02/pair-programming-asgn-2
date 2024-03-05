@@ -6,19 +6,14 @@ import javafx.scene.Scene;
 import java.util.Properties;
 
 // project imports
-import event.Event;
-import exception.InvalidPrimaryKeyException;
-
 import userinterface.View;
 import userinterface.ViewFactory;
 
-/** The class containing the TransferTransaction for the ATM application */
+/** The class containing the DepositTransaction for the ATM application */
 //==============================================================
-public class SearchBooksTransaction extends Transaction
-{
-    private String transferAmount;
-    // GUI Components
+public class SearchBooksTransaction extends Transaction {
 
+    // GUI Components
     private String transactionErrorMessage = "";
     private String accountUpdateStatusMessage = "";
 
@@ -28,188 +23,100 @@ public class SearchBooksTransaction extends Transaction
     //----------------------------------------------------------
     public SearchBooksTransaction() throws Exception {
         super();
+        System.out.println("Constructor for create and insert book view");
+        createAndShowSearchBookTransactionView();
     }
 
     //----------------------------------------------------------
     protected void setDependencies()
     {
         dependencies = new Properties();
-        dependencies.setProperty("DoTransfer", "TransactionError");
-        dependencies.setProperty("CancelTransfer", "CancelTransaction");
+        dependencies.setProperty("CancelSearchBookTransaction", "CancelTransaction");
         dependencies.setProperty("OK", "CancelTransaction");
+        dependencies.setProperty("AccountNumber", "TransactionError");
 
         myRegistry.setDependencies(dependencies);
     }
 
     /**
-     * This method encapsulates all the logic of creating the account,
-     * verifying ownership, crediting, etc. etc.
+     * This method encapsulates all the logic of inserting the book.
      */
     //----------------------------------------------------------
     public void processTransaction(Properties props)
     {
+        System.out.println("enter `processTransaction` in SearchBookTransaction.java");
+        String titleQuery = props.getProperty("bookTitle");
 
-        String sourceAccountNumber = props.getProperty("SourceAccountNumber");
-        String destAccountNumber = props.getProperty("DestAccountNumber");
-        String amount = props.getProperty("Amount");
+        System.out.println("\n\nThe title is : " + titleQuery);
 
-        // DEBUG System.out.println("here: sa: "+ sourceAccountNumber + "; da: " + destAccountNumber + "; amt: " +  amount);
-        transferAmount = amount;
+        //BookCollection bookCollection = new BookCollection();
 
-//        try
-//        {
-////            source = createAccount(sourceAccountNumber);
-//
-////            boolean isOwner = source.verifyOwnership(myCust);
-//            boolean isOwner = true;
-//            if (!isOwner)
-//            {
-//                transactionErrorMessage = "ERROR: Transfer Transaction: Not owner of selected source account!!";
-//                new Event(Event.getLeafLevelClassName(this), "processTransaction",
-//                        "Failed to verify ownership of source account number : " + sourceAccountNumber + ".",
-//                        Event.ERROR);
-//            }
-//            else
-//            {
-////                dest= createAccount(destAccountNumber);
-//
-////                isOwner = dest.verifyOwnership(myCust);
-//                if (!isOwner)
-//                {
-//                    transactionErrorMessage = "ERROR: Transfer Transaction: Not owner of selected dest account!!";
-//                    new Event(Event.getLeafLevelClassName(this), "processTransaction",
-//                            "Failed to verify ownership of dest account number : " + destAccountNumber + ".",
-//                            Event.ERROR);
-//                }
-//                else
-//                {
-//                    boolean ok = source.checkBalance(amount);
-//
-//                    if (ok)
-//                    {
-//                        source.debit(amount);
-//                        dest.credit(amount);
-//
-//                        source.update();
-//                        accountUpdateStatusMessage = (String)source.getState("UpdateStatusMessage");
-//                        transactionErrorMessage = accountUpdateStatusMessage;
-//
-//                        if ((transactionErrorMessage != null) && (!transactionErrorMessage.startsWith("Error")))
-//                        {
-//                            dest.update();
-//                            accountUpdateStatusMessage = (String)dest.getState("UpdateStatusMessage");
-//                            transactionErrorMessage = accountUpdateStatusMessage;
-//                        }
-//
-                        createAndShowReceiptView();
-//                    }
-//                    else
-//                    {
-//                        transactionErrorMessage = "Not enough money in account to Transfer $ " + amount;
-//                    }
-//                }
-//
-//
-//            }
-//        }
-//        catch (InvalidPrimaryKeyException ex)
-//        {
-//            transactionErrorMessage = "ACCOUNT FAILURE: Contact bank immediately!!";
-//            new Event(Event.getLeafLevelClassName(this), "processTransaction",
-//                    "Failed to create account for either number : " + sourceAccountNumber + " or " + destAccountNumber +
-//                            ". Reason: " + ex,
-//                    Event.ERROR);
-//
-//        }
+        //Vector<Book> bookList = bookCollection.findBooksWithTitleLike(titleQuery);
     }
 
     //-----------------------------------------------------------
     public Object getState(String key)
     {
-        if (key.equals("TransactionError"))
-        {
+        if (key.equals("TransactionError")) {
             return transactionErrorMessage;
-        }
-        else
-        if (key.equals("UpdateStatusMessage"))
-        {
+        } else if (key.equals("UpdateStatusMessage")) {
             return accountUpdateStatusMessage;
         }
-        else
-        if (key.equals("AccountNumberList"))
-        {
-            return myAccountIDs;
-        }
-        else
-        if (key.equals("SourceAccount"))
-        {
-//            return source;
-        }
-        else
-        if (key.equals("DestAccount"))
-        {
-//            return dest;
-        }
-        else
-        if (key.equals("TransferAmount"))
-        {
-            return transferAmount;
-        }
+//        } else if (key.equals("AccountNumberList")) {
+//            return myAccountIDs;
+//        } else if (key.equals("Account")) {
+////            return myAccount;
+//        } else if (key.equals("DepositAmount")) {
+//            return depositAmount;
+//        }
         return null;
     }
 
     //-----------------------------------------------------------
     public void stateChangeRequest(String key, Object value)
     {
-        if (key.equals("DoYourJob"))
-        {
+        // DEBUG System.out.println("DepositTransaction.sCR: key: " + key);
+        if (key.equals("DoYourJob")) {
+            System.out.println("DoYourJob enter if statement in `stateChangeRequest` SearchBookTransaction.java");
 //            doYourJob();
         }
-        else
-        if (key.equals("DoTransfer"))
-        {
-            processTransaction((Properties)value);
+        else if (key.equals("DoSearchBookTransaction")) {
+            System.out.println("DoSearchBookTransaction enter if statement in `stateChangeRequest` in SearchBookTransaction.java");
+
+            processTransaction((Properties) value);
         }
+
+
 
         myRegistry.updateSubscribers(key, this);
     }
 
     /**
      * Create the view of this class. And then the super-class calls
-     * swapToView() to display the view in the stage
+     * swapToView() to display the view in the frame
      */
     //------------------------------------------------------
     protected Scene createView()
     {
+        Scene currentScene = myViews.get("DepositTransactionView");
 
-        Scene currentScene = myViews.get("TransferTransactionView");
-
-        if (currentScene == null)
-        {
+        if (currentScene == null) {
             // create our initial view
-            View newView = ViewFactory.createView("TransferTransactionView", this);
+            View newView = ViewFactory.createView("DepositTransactionView", this);
             currentScene = new Scene(newView);
-            myViews.put("TransferTransactionView", currentScene);
-
-            return currentScene;
+            myViews.put("DepositTransactionView", currentScene);
         }
-        else
-        {
-            return currentScene;
-        }
+        return currentScene;
     }
 
-    //------------------------------------------------------
-    protected void createAndShowReceiptView()
-    {
-        View newView = ViewFactory.createView("TransferReceipt", this);
-        Scene newScene = new Scene(newView);
 
-        myViews.put("TransferReceipt", newScene);
+    //------------------------------------------------------
+    protected void createAndShowSearchBookTransactionView() {
+        View newView = ViewFactory.createView("SearchBookTransactionView", this);
+        Scene newScene = new Scene(newView);
 
         // make the view visible by installing it into the stage
         swapToView(newScene);
     }
-
 }
 

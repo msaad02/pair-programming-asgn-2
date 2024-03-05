@@ -4,158 +4,120 @@ package model;
 // system imports
 import javafx.scene.Scene;
 import java.util.Properties;
+import java.util.Vector;
 
 // project imports
-import event.Event;
-import exception.InvalidPrimaryKeyException;
-
 import userinterface.View;
 import userinterface.ViewFactory;
 
-/** The class containing the BalanceInquiryTransaction for the ATM application */
+/** The class containing the DepositTransaction for the ATM application */
 //==============================================================
-public class SearchPatronsTransaction extends Transaction
-{
-    private String balanceAmount; // needed for GUI only
+public class SearchPatronsTransaction extends Transaction {
 
     // GUI Components
     private String transactionErrorMessage = "";
+    private String accountUpdateStatusMessage = "";
 
-    // Constructor for this class.
+    /**
+     * Constructor for this class.
+     */
     //----------------------------------------------------------
     public SearchPatronsTransaction() throws Exception {
         super();
+        System.out.println("Constructor for create and insert book view");
+        createAndShowSearchPatronTransactionView();
     }
 
     //----------------------------------------------------------
     protected void setDependencies()
     {
         dependencies = new Properties();
-        dependencies.setProperty("DoBalanceInquiry", "TransactionError");
-        dependencies.setProperty("CancelBalanceInquiry", "CancelTransaction");
+        dependencies.setProperty("CancelSearchPatronTransaction", "CancelTransaction");
         dependencies.setProperty("OK", "CancelTransaction");
+        dependencies.setProperty("AccountNumber", "TransactionError");
 
         myRegistry.setDependencies(dependencies);
     }
 
     /**
-     * This method encapsulates all the logic of creating the account,
-     * verifying ownership, crediting, etc. etc.
+     * This method encapsulates all the logic of inserting the book.
      */
     //----------------------------------------------------------
     public void processTransaction(Properties props)
     {
-        System.out.println("processTransaction enter in SearchPatronsTransaction.java");
-//        String accountNumber = props.getProperty("AccountNumber");
-//
-//        try
-//        {
-//            myAccount = createAccount(accountNumber);
-//
-//            boolean isOwner = myAccount.verifyOwnership(myCust);
-//            if (!isOwner)
-//            {
-//                transactionErrorMessage = "ERROR: BalanceInquiry Transaction: Not owner of selected account!!";
-//                new Event(Event.getLeafLevelClassName(this), "processTransaction",
-//                        "Failed to verify ownership of account number : " + accountNumber + ".",
-//                        Event.ERROR);
-//            }
-//            else
-//            {
-//                balanceAmount = (String)myAccount.getState("Balance");
-//
-//                createAndShowReceiptView();
-//
-//            }
-//        }
-//        catch (InvalidPrimaryKeyException ex)
-//        {
-//            transactionErrorMessage = "ACCOUNT FAILURE: Contact bank immediately!!";
-//            new Event(Event.getLeafLevelClassName(this), "processTransaction",
-//                    "Failed to create account for number : " + accountNumber + ". Reason: " + ex,
-//                    Event.ERROR);
-//
-//        }
+        System.out.println("enter `processTransaction` in SearchPatronTransaction.java");
+        String zipQuery = props.getProperty("zip");
+
+        System.out.println("\n\nThe zip is : " + zipQuery);
+
+//        PatronCollection patronCollection = new PatronCollection();
+//        Vector<Patron> patronList = patronCollection.findPatronsAtZipCode(zipQuery);
+//        System.out.println("the patron list is : " + patronList);
     }
 
     //-----------------------------------------------------------
     public Object getState(String key)
     {
-        if (key.equals("TransactionError"))
-        {
+        if (key.equals("TransactionError")) {
             return transactionErrorMessage;
+        } else if (key.equals("UpdateStatusMessage")) {
+            return accountUpdateStatusMessage;
         }
-        else
-        if (key.equals("AccountNumberList"))
-        {
-            return myAccountIDs;
-        }
-        else
-        if (key.equals("Account"))
-        {
-//            return myAccount;
-        }
-        else
-        if (key.equals("BalanceAmount"))
-        {
-            return balanceAmount;
-        }
+//        } else if (key.equals("AccountNumberList")) {
+//            return myAccountIDs;
+//        } else if (key.equals("Account")) {
+////            return myAccount;
+//        } else if (key.equals("DepositAmount")) {
+//            return depositAmount;
+//        }
         return null;
     }
 
     //-----------------------------------------------------------
     public void stateChangeRequest(String key, Object value)
     {
-        if (key.equals("DoYourJob"))
-        {
+        // DEBUG System.out.println("DepositTransaction.sCR: key: " + key);
+        if (key.equals("DoYourJob")) {
+            System.out.println("DoYourJob enter if statement in `stateChangeRequest` SearchPatronTransaction.java");
 //            doYourJob();
         }
-        else
-        if (key.equals("DoBalanceInquiry"))
-        {
-            processTransaction((Properties)value);
+        else if (key.equals("DoSearchPatronTransaction")) {
+            System.out.println("DoSearchPatronTransaction enter if statement in `stateChangeRequest` in SearchPatronTransaction.java");
+
+            processTransaction((Properties) value);
         }
+
+
 
         myRegistry.updateSubscribers(key, this);
     }
 
     /**
      * Create the view of this class. And then the super-class calls
-     * swapToView() to display the view in the stage
+     * swapToView() to display the view in the frame
      */
     //------------------------------------------------------
     protected Scene createView()
     {
+        Scene currentScene = myViews.get("DepositTransactionView");
 
-        Scene currentScene = myViews.get("BalanceInquiryTransactionView");
-
-        if (currentScene == null)
-        {
-            // create our new view
-            View newView = ViewFactory.createView("BalanceInquiryTransactionView", this);
+        if (currentScene == null) {
+            // create our initial view
+            View newView = ViewFactory.createView("DepositTransactionView", this);
             currentScene = new Scene(newView);
-            myViews.put("BalanceInquiryTransactionView", currentScene);
-
-            return currentScene;
+            myViews.put("DepositTransactionView", currentScene);
         }
-        else
-        {
-            return currentScene;
-        }
+        return currentScene;
     }
+
 
     //------------------------------------------------------
-    protected  void createAndShowReceiptView()
-    {
-        // create our new view
-        View newView = ViewFactory.createView("BalanceInquiryReceipt", this);
+    protected void createAndShowSearchPatronTransactionView() {
+        View newView = ViewFactory.createView("SearchPatronTransactionView", this);
         Scene newScene = new Scene(newView);
 
-        myViews.put("BalanceInquiryReceiptView", newScene);
-
-        // make the view visible by installing it into the frame
+        // make the view visible by installing it into the stage
         swapToView(newScene);
     }
-
 }
 
