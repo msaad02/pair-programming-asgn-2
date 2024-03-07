@@ -1,7 +1,6 @@
 package model;
 
 // system imports
-import model.EntityBase;
 import java.util.Properties;
 import java.util.Vector;
 
@@ -76,7 +75,7 @@ public class PatronCollection extends EntityBase {
     }
 
     public Vector<Patron> findPatronsAtZipCode(String phrase) {
-        String query = "SELECT * FROM " + myTableName + " WHERE zip LIKE '%" + phrase + "%'";
+        String query = "SELECT * FROM " + myTableName + " WHERE zip LIKE '%" + phrase + "%' ORDER BY name";
 
         try {
             updatePatronListFromSQL(query);
